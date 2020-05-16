@@ -11,7 +11,7 @@ public class BackpackScreen extends ContainerScreen<BackpackContainer>
 {
     public static final Identifier BACKPACK_SLOTS_TEXTURE = new Identifier("simple_backpack", "textures/gui/chest_slots.png");
     public static final Identifier BACKPACK_BACKGROUND_TEXTURE = new Identifier("simple_backpack", "textures/gui/chest.png");
-    
+
     private BackpackContainer container;
 
     public BackpackScreen(BackpackContainer container, PlayerInventory inventory, Text title)
@@ -22,7 +22,7 @@ public class BackpackScreen extends ContainerScreen<BackpackContainer>
         this.containerWidth = 14 + container.inventoryWidth * 18;
         this.containerHeight = 114 + container.inventoryHeight * 18 + 7;
     }
-    
+
     @Override
     protected void drawForeground(int mouseX, int mouseY)
     {
@@ -30,7 +30,7 @@ public class BackpackScreen extends ContainerScreen<BackpackContainer>
         this.font.draw(this.playerInventory.getDisplayName().asFormattedString(), 8.0F, (float)(this.containerHeight - 96 - 3), 4210752);
 
         super.drawForeground(mouseX, mouseY);
-        
+
         this.drawMouseoverTooltip(mouseX - x, mouseY - y);
     }
 
@@ -66,32 +66,9 @@ public class BackpackScreen extends ContainerScreen<BackpackContainer>
         minecraft.getTextureManager().bindTexture(BACKPACK_SLOTS_TEXTURE);
         //chest slots
         blit(this.x + 7, this.y + 17, 0, 0, 18 * container.inventoryWidth, 18 * container.inventoryHeight, 432, 216);
-        //inv slots  
+        //inv slots
         blit(this.x + (containerWidth / 2) - 9 * 9, this.y + (container.inventoryHeight * 18) + 18 + 17, 0, 0, 18 * 9, 18 * 3, 432, 216);
         //hotbar slots
-        blit(this.x + (containerWidth / 2) - 9 * 9, this.y + (container.inventoryHeight * 18) + 18 + 60 + 17, 0, 0, 18 * 9, 18 * 1, 432, 216);   
+        blit(this.x + (containerWidth / 2) - 9 * 9, this.y + (container.inventoryHeight * 18) + 18 + 60 + 17, 0, 0, 18 * 9, 18 * 1, 432, 216);
     }
-
-//    @Override
-//    protected boolean handleHotbarKeyPressed(int keyCode, int scanCode)
-//    {
-//        if (this.minecraft.player.inventory.getCursorStack().isEmpty() && this.focusedSlot != null)
-//        {
-//            for(int i = 0; i < 9; ++i)
-//            {
-//                if(i == this.minecraft.player.inventory.selectedSlot && container.blockEntity == null)
-//                {
-//                    continue;
-//                }
-//
-//                if (this.minecraft.options.keysHotbar[i].matchesKey(keyCode, scanCode))
-//                {
-//                    this.onMouseClick(this.focusedSlot, this.focusedSlot.id, i, SlotActionType.SWAP);
-//                    return true;
-//                }
-//            }
-//         }
-//   
-//         return false;
-//    }
 }

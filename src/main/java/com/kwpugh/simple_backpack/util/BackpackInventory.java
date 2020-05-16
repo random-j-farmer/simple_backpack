@@ -10,7 +10,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
 
-public class BackpackInventory implements Inventory, BackpackInventoryImpl {
+public class BackpackInventory implements Inventory, BackpackInventoryImpl
+{
     public DefaultedList<ItemStack> items;
     public int inventory_width;
     public int inventory_height;
@@ -18,7 +19,8 @@ public class BackpackInventory implements Inventory, BackpackInventoryImpl {
     private final Hand hand;
     private final PlayerEntity player;
 
-    public BackpackInventory(CompoundTag items_tag, Hand hand, PlayerEntity player) {
+    public BackpackInventory(CompoundTag items_tag, Hand hand, PlayerEntity player)
+    {
         this.hand = hand;
         this.player = player;
 
@@ -26,69 +28,82 @@ public class BackpackInventory implements Inventory, BackpackInventoryImpl {
     }
 
     @Override
-    public void clear() {
+    public void clear()
+    {
         this.items.clear();
     }
 
     @Override
-    public int getInventoryWidth() {
+    public int getInventoryWidth()
+    {
         return inventory_width;
     }
 
     @Override
-    public int getInventoryHeight() {
+    public int getInventoryHeight()
+    {
         return inventory_height;
     }
 
     @Override
-    public int getInvSize() {
+    public int getInvSize()
+    {
         return getInventoryWidth() * getInventoryHeight();
     }
 
     @Override
-    public boolean isInvEmpty() {
+    public boolean isInvEmpty()
+    {
         return this.items.stream().allMatch(ItemStack::isEmpty);
     }
 
     @Override
-    public ItemStack getInvStack(int slot) {
+    public ItemStack getInvStack(int slot)
+    {
         return items.get(slot);
     }
 
     @Override
-    public ItemStack takeInvStack(int slot, int amount) {
+    public ItemStack takeInvStack(int slot, int amount)
+    {
         return Inventories.splitStack(this.items, slot, amount);
     }
 
     @Override
-    public ItemStack removeInvStack(int slot) {
+    public ItemStack removeInvStack(int slot)
+    {
         return Inventories.removeStack(this.items, slot);
     }
 
     @Override
-    public void setInvStack(int slot, ItemStack stack) {
+    public void setInvStack(int slot, ItemStack stack)
+    {
         this.items.set(slot, stack);
     }
 
     @Override
-    public void markDirty() {
-        
+    public void markDirty()
+    {
+
     }
 
     @Override
-    public boolean canPlayerUseInv(PlayerEntity player) {
+    public boolean canPlayerUseInv(PlayerEntity player)
+    {
         return true;
     }
 
-    public void fromTag(CompoundTag tag) {
+    public void fromTag(CompoundTag tag)
+    {
         this.inventory_width = tag.contains("inventory_width") ? tag.getInt("inventory_width") : 9;
         this.inventory_height = tag.contains("inventory_height") ? tag.getInt("inventory_height") : 6;
-        
+
         this.items = DefaultedList.ofSize(inventory_width * inventory_height, ItemStack.EMPTY);
         readItemsFromTag(this.items, tag);
     }
 
-    public CompoundTag toTag() {
+    public CompoundTag toTag()
+    {
         CompoundTag tag = new CompoundTag();
         tag.putInt("inventory_width", inventory_width);
         tag.putInt("inventory_height", inventory_height);
@@ -99,16 +114,19 @@ public class BackpackInventory implements Inventory, BackpackInventoryImpl {
     }
 
     @Override
-    public void onInvOpen(PlayerEntity player) {
+    public void onInvOpen(PlayerEntity player)
+    {
         Inventory.super.onInvOpen(player);
         player.playSound(SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.PLAYERS, 1f, 1f);
     }
 
     @Override
-    public void onInvClose(PlayerEntity player) {
+    public void onInvClose(PlayerEntity player)
+    {
         Inventory.super.onInvClose(player);
 
-        if(!player.getStackInHand(hand).hasTag()) {
+        if(!player.getStackInHand(hand).hasTag())
+        {
             player.getStackInHand(hand).setTag(new CompoundTag());
         }
 

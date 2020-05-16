@@ -25,9 +25,6 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     public int players_using_old = 0;
     public boolean is_open = false;
 
-    public float lid_openness = 0f;
-    public float last_lid_openness = 0f;
-
     public BackpackBlockEntity()
     {
         super(Backpack.BACKPACK_ENTITY_TYPE);
@@ -37,7 +34,7 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     @Override
     protected Text getContainerName()
     {
-        return new TranslatableText("container.chest");
+        return new TranslatableText("container.simple_backpack.backpack");
     }
 
     @Override
@@ -89,7 +86,7 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     public void resizeInventory(boolean copy_contents)
     {
         DefaultedList<ItemStack> new_inventory = DefaultedList.ofSize(inventory_width * inventory_height, ItemStack.EMPTY);
-        
+
         if(copy_contents)
         {
             DefaultedList<ItemStack> list = this.inventory;
