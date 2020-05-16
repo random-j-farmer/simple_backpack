@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "simple_backpack",
+  "version": "${version}",
+  "name": "SimpleBackpack",
+  "description": "A simple backpack mod!",
+  "authors": [
+    "kwpugh"
+  ],
+  "contributors": [],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+  "license": "MIT",
+  "icon": "assets/simple_backpack/textures/backpack.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.kwpugh.simple_backpack.Backpack"
+    ],
+    "client": [
+      "com.kwpugh.simple_backpack.BackpackClient"
+    ],
+    "server": []
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  }
+}
