@@ -1,7 +1,5 @@
 package com.kwpugh.simple_backpack;
 
-import com.kwpugh.simple_backpack.util.BackpackInventory;
-
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

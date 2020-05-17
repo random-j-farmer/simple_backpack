@@ -1,6 +1,4 @@
-package com.kwpugh.simple_backpack.util;
-
-import com.kwpugh.simple_backpack.Backpack;
+package com.kwpugh.simple_backpack;
 
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;

@@ -1,8 +1,5 @@
 package com.kwpugh.simple_backpack;
 
-import com.kwpugh.simple_backpack.util.BackpackHandler;
-import com.kwpugh.simple_backpack.util.BackpackScreen;
-
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.client.MinecraftClient;

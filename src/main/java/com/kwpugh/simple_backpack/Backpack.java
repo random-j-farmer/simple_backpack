@@ -4,10 +4,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.kwpugh.simple_backpack.util.BackpackBlockEntity;
-import com.kwpugh.simple_backpack.util.BackpackHandler;
-import com.kwpugh.simple_backpack.util.BackpackInventoryImpl;
-
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.entity.BlockEntityType;
