@@ -15,7 +15,6 @@ public class BackpackInventory implements Inventory, BackpackInventoryImpl
     public DefaultedList<ItemStack> items;
     public int inventory_width;
     public int inventory_height;
-
     private final Hand hand;
     private final PlayerEntity player;
 
