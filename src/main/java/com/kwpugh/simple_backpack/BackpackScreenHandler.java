@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Hand;
 
 public class BackpackScreenHandler extends ScreenHandler
@@ -42,7 +43,26 @@ public class BackpackScreenHandler extends ScreenHandler
         checkSize(inventory, inventoryWidth * inventoryHeight);
         inventory.onOpen(playerInventory.player);
 
+        int openingSlotNum = playerInventory.selectedSlot;
+        System.out.println("openingHandSlot:  " + openingSlotNum);
+        ItemStack openingStack = playerInventory.getStack(openingSlotNum);
+        System.out.println("openingStack:  " + openingStack);
+
         setupSlots(false);
+    }
+
+    //Prevents removing the backpack from the hotbar
+    @Override
+    public ItemStack onSlotClick(int slotNumber, int button, SlotActionType action, PlayerEntity player)
+    {
+        if ((action == SlotActionType.PICKUP || action == SlotActionType.PICKUP_ALL) && this.getStacks().get(slotNumber).getItem() instanceof BackpackItem)
+        {
+            return ItemStack.EMPTY;
+        }
+        else
+        {
+        	return super.onSlotClick(slotNumber, button, action, player);
+        }
     }
 
     @Override
@@ -92,7 +112,6 @@ public class BackpackScreenHandler extends ScreenHandler
         ItemStack newStack = ItemStack.EMPTY;
         final Slot slot = this.slots.get(invSlot);
         final ItemStack originalStack = slot.getStack();
-
         Item testItem = originalStack.getItem();
 
         if (slot != null && slot.hasStack() && testItem != Backpack.BACKPACK)  //make sure backpack don't into backpacks
