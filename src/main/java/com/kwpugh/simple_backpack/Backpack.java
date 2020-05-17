@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.kwpugh.simple_backpack.util.BackpackBlockEntity;
-import com.kwpugh.simple_backpack.util.BackpackContainer;
+import com.kwpugh.simple_backpack.util.BackpackHandler;
 import com.kwpugh.simple_backpack.util.BackpackInventoryImpl;
 
 import net.fabricmc.api.ModInitializer;
@@ -40,7 +40,7 @@ public class Backpack implements ModInitializer
             final Hand hand = buf.readInt() == 0 ? Hand.MAIN_HAND : Hand.OFF_HAND;
             final BackpackInventoryImpl inventory = BackpackItem.getInventory(stack, hand, player);
 
-            return new BackpackContainer(syncId, player.inventory, inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
+            return new BackpackHandler(syncId, player.inventory, inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
         }));
 
         Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);

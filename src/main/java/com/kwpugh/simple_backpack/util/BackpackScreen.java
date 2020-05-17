@@ -8,18 +8,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-
-public class BackpackScreen extends HandledScreen<BackpackContainer>
+public class BackpackScreen extends HandledScreen<BackpackHandler>
 {
-    //public static final Identifier BACKPACK_SLOTS_TEXTURE = new Identifier("simple_backpack", "textures/gui/chest_slots.png");
-    //public static final Identifier BACKPACK_BACKGROUND_TEXTURE = new Identifier("simple_backpack", "textures/gui/chest.png");
-
-    //private BackpackContainer container;
-
     private final int rows;
     private static final Identifier TEXTURE = new Identifier("textures/gui/container/generic_54.png");
 
-    public BackpackScreen(BackpackContainer handler, PlayerInventory inventory, Text title)
+    public BackpackScreen(BackpackHandler handler, PlayerInventory inventory, Text title)
     {
         super(handler, inventory, title);
         this.passEvents = false;

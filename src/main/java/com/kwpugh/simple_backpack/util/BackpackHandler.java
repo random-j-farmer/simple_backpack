@@ -8,7 +8,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
 
-public class BackpackContainer extends ScreenHandler
+public class BackpackHandler extends ScreenHandler
 {
     private final Inventory inventory;
     private final PlayerInventory playerInventory;
@@ -20,7 +20,7 @@ public class BackpackContainer extends ScreenHandler
 
     private ItemStack backpack;
 
-    public BackpackContainer(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand) {
+    public BackpackHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand) {
         super(null, syncId);
         this.inventory = inventory;
         this.playerInventory = playerInventory;
