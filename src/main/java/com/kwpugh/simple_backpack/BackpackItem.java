@@ -18,7 +18,6 @@ public class BackpackItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
     {
-
         if(!world.isClient)
         {
             ContainerProviderRegistry.INSTANCE.openContainer(Backpack.BACKPACK_IDENTIFIER, user, buf -> {
@@ -32,14 +31,16 @@ public class BackpackItem extends Item {
 
     public static BackpackInventory getInventory(ItemStack stack, Hand hand, PlayerEntity player)
     {
-        if(!stack.hasTag()) {
+        if(!stack.hasTag())
+        {
             stack.setTag(new CompoundTag());
         }
 
-        if(!stack.getTag().contains("Backpack")) {
-            stack.getTag().put("Backpack", new CompoundTag());
+        if(!stack.getTag().contains("backpack"))
+        {
+            stack.getTag().put("backpack", new CompoundTag());
         }
 
-        return new BackpackInventory(stack.getTag().getCompound("Backpack"), hand, player);
+        return new BackpackInventory(stack.getTag().getCompound("backpack"), hand, player);
     }
 }
