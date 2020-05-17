@@ -20,7 +20,8 @@ public class BackpackHandler extends ScreenHandler
 
     private ItemStack backpack;
 
-    public BackpackHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand) {
+    public BackpackHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand)
+    {
         super(null, syncId);
         this.inventory = inventory;
         this.playerInventory = playerInventory;
@@ -40,7 +41,7 @@ public class BackpackHandler extends ScreenHandler
         checkSize(inventory, inventoryWidth * inventoryHeight);
         inventory.onOpen(playerInventory.player);
 
-        setupSlots(true);
+        setupSlots(false);
     }
 
     @Override
@@ -52,46 +53,24 @@ public class BackpackHandler extends ScreenHandler
 
     public void setupSlots(final boolean includeChestInventory)
     {
-        int i;
-        int j;
+        int i = (this.inventoryHeight - 4) * 18;
 
-        this.slots.clear();
-
-        final int chestInvHeight = inventoryHeight * 18;
-
-        for (i = 0; i < inventoryHeight; i++)
-        {
-            for (j = 0; j < inventoryWidth; j++)
-            {
-                final Slot slot = new Slot(inventory, i * inventoryWidth + j, 8 + j * 18, 18 + i * 18);
-                this.addSlot(slot);
-            }
+        int n;
+        int m;
+        for(n = 0; n < this.inventoryHeight; ++n) {
+           for(m = 0; m < 9; ++m) {
+              this.addSlot(new Slot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
+           }
         }
 
-        for (i = 0; i < 3; i++)
-        {
-            for (j = 0; j < 9; j++)
-            {
-                this.addSlot(new Slot(playerInventory, i * 9 + j + 9, 8 + ((inventoryWidth * 18) / 2) - (9 * 9) + j * 18, 18 + i * 18 + chestInvHeight + 18));
-            }
+        for(n = 0; n < 3; ++n) {
+           for(m = 0; m < 9; ++m) {
+              this.addSlot(new Slot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
+           }
         }
 
-
-        for (j = 0; j < 9; j++)
-        {
-            if(this.blockEntity == null && j==playerInventory.selectedSlot)
-            {
-                this.addSlot(new Slot(playerInventory, j, 8 + ((inventoryWidth * 18) / 2) - (9 * 9) + j * 18, 18 + chestInvHeight + 60 + 18) {
-                    @Override
-                    public boolean canTakeItems(PlayerEntity playerEntity)
-                    {
-                        return false;
-                    }
-
-                });
-            } else {
-                this.addSlot(new Slot(playerInventory, j, 8 + ((inventoryWidth * 18) / 2) - (9 * 9) + j * 18, 18 + chestInvHeight + 60 + 18));
-            }
+        for(n = 0; n < 9; ++n) {
+           this.addSlot(new Slot(playerInventory, n, 8 + n * 18, 161 + i));
         }
     }
 

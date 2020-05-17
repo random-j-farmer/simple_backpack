@@ -10,7 +10,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -40,7 +39,7 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory)
     {
-        return new BackpackHandler(syncId, playerInventory, (Inventory) this, inventory_width, inventory_height, null);
+        return new BackpackHandler(syncId, playerInventory, (Inventory) this.inventory, inventory_width, inventory_height, null);
     }
 
 
