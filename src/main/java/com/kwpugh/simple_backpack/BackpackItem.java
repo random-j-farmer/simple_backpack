@@ -9,7 +9,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class BackpackItem extends Item {
+public class BackpackItem extends Item
+{
     public BackpackItem(Settings settings)
     {
         super(settings);

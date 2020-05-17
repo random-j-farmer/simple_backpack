@@ -13,7 +13,7 @@
     "sources": ""
   },
   "license": "MIT",
-  "icon": "assets/simple_backpack/textures/backpack.png",
+  "icon": "assets/simple_backpack/textures/items/backpack.png",
   "environment": "*",
   "entrypoints": {
     "main": [
