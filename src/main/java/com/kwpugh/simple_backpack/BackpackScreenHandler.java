@@ -9,19 +9,19 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
 
-public class BackpackHandler extends ScreenHandler
+public class BackpackScreenHandler extends ScreenHandler
 {
     private final Inventory inventory;
     private final PlayerInventory playerInventory;
 
-    public BackpackBlockEntity blockEntity;
+    //public BackpackBlockEntity blockEntity;
 
     public final int inventoryWidth;
     public final int inventoryHeight;
 
     private ItemStack backpack;
 
-    public BackpackHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand)
+    public BackpackScreenHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand)
     {
         super(null, syncId);
         this.inventory = inventory;
@@ -29,15 +29,15 @@ public class BackpackHandler extends ScreenHandler
         this.inventoryWidth = inventoryWidth;
         this.inventoryHeight = inventoryHeight;
 
-        if(inventory instanceof BackpackBlockEntity)
-        {
-            this.blockEntity = (BackpackBlockEntity) inventory;
-            this.backpack = null;
-        } else if(inventory instanceof BackpackInventory)
-        {
-            this.backpack = playerInventory.player.getStackInHand(hand);
-            this.blockEntity = null;
-        }
+//        if(inventory instanceof BackpackBlockEntity)
+//        {
+//            this.blockEntity = (BackpackBlockEntity) inventory;
+//            this.backpack = null;
+//        } else if(inventory instanceof BackpackInventory)
+//        {
+//            this.backpack = playerInventory.player.getStackInHand(hand);
+//            this.blockEntity = null;
+//        }
 
         checkSize(inventory, inventoryWidth * inventoryHeight);
         inventory.onOpen(playerInventory.player);

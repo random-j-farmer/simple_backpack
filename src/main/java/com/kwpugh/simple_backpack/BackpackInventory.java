@@ -10,7 +10,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.Hand;
 
-public class BackpackInventory implements Inventory, BackpackInventoryImpl
+public class BackpackInventory implements Inventory, BackpackInventoryInterface
 {
     public DefaultedList<ItemStack> items;
     public int inventory_width;

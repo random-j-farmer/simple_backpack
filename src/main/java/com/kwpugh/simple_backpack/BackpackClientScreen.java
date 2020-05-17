@@ -11,12 +11,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class BackpackScreen extends HandledScreen<BackpackHandler>
+public class BackpackClientScreen extends HandledScreen<BackpackScreenHandler>
 {
 	   private static final Identifier TEXTURE = new Identifier("textures/gui/container/generic_54.png");
 	   private final int rows;
 
-	   public BackpackScreen(BackpackHandler handler, PlayerInventory inventory, Text title)
+	   public BackpackClientScreen(BackpackScreenHandler handler, PlayerInventory inventory, Text title)
 	   {
 	      super(handler, inventory, title);
 	      this.passEvents = false;
@@ -31,12 +31,6 @@ public class BackpackScreen extends HandledScreen<BackpackHandler>
 	      this.drawMouseoverTooltip(matrices, mouseX, mouseY);
 	   }
 
-	   protected void drawForeground(MatrixStack matrixStack, int i, int j)
-	   {
-	      this.textRenderer.draw(matrixStack, this.title, 8.0F, 6.0F, 4210752);
-	      this.textRenderer.draw(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.backgroundHeight - 96 + 2), 4210752);
-	   }
-
 	   protected void drawBackground(MatrixStack matrixStack, float f, int mouseY, int i)
 	   {
 	      RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -45,5 +39,11 @@ public class BackpackScreen extends HandledScreen<BackpackHandler>
 	      int k = (this.height - this.backgroundHeight) / 2;
 	      this.drawTexture(matrixStack, j, k, 0, 0, this.backgroundWidth, this.rows * 18 + 17);
 	      this.drawTexture(matrixStack, j, k + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 96);
+	   }
+
+	   protected void drawForeground(MatrixStack matrixStack, int i, int j)
+	   {
+	      this.textRenderer.draw(matrixStack, this.title, 8.0F, 6.0F, 4210752);
+	      this.textRenderer.draw(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.backgroundHeight - 96 + 2), 4210752);
 	   }
 }

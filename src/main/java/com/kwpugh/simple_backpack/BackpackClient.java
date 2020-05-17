@@ -10,6 +10,6 @@ public class BackpackClient implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        ScreenProviderRegistry.INSTANCE.<BackpackHandler>registerFactory(Backpack.BACKPACK_IDENTIFIER, (container -> new BackpackScreen(container, MinecraftClient.getInstance().player.inventory, new TranslatableText(Backpack.BACKPACK_TRANSLATION_KEY))));
+        ScreenProviderRegistry.INSTANCE.<BackpackScreenHandler>registerFactory(Backpack.BACKPACK_IDENTIFIER, (container -> new BackpackClientScreen(container, MinecraftClient.getInstance().player.inventory, new TranslatableText(Backpack.BACKPACK_TRANSLATION_KEY))));
     }
 }

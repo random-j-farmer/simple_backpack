@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.collection.DefaultedList;
 
-public interface BackpackInventoryImpl
+public interface BackpackInventoryInterface
 {
     public default Inventory getInventory()
     {
