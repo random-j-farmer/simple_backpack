@@ -43,11 +43,6 @@ public class BackpackScreenHandler extends ScreenHandler
         checkSize(inventory, inventoryWidth * inventoryHeight);
         inventory.onOpen(playerInventory.player);
 
-        int openingSlotNum = playerInventory.selectedSlot;
-        System.out.println("openingHandSlot:  " + openingSlotNum);
-        ItemStack openingStack = playerInventory.getStack(openingSlotNum);
-        System.out.println("openingStack:  " + openingStack);
-
         setupSlots(false);
     }
 
@@ -55,13 +50,14 @@ public class BackpackScreenHandler extends ScreenHandler
     @Override
     public ItemStack onSlotClick(int slotNumber, int button, SlotActionType action, PlayerEntity player)
     {
-        if ((action == SlotActionType.PICKUP || action == SlotActionType.PICKUP_ALL) && this.getStacks().get(slotNumber).getItem() instanceof BackpackItem)
+    	if (this.getStacks().get(slotNumber).getItem() instanceof BackpackItem)
         {
             return ItemStack.EMPTY;
         }
         else
         {
         	return super.onSlotClick(slotNumber, button, action, player);
+        	//return transferSlot(player, slotNumber);
         }
     }
 
