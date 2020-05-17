@@ -8,8 +8,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
 
-public class BackpackContainer extends ScreenHandler
-{
+public class BackpackContainer extends ScreenHandler {
     private final Inventory inventory;
     private final PlayerInventory playerInventory;
 
@@ -27,12 +26,10 @@ public class BackpackContainer extends ScreenHandler
         this.inventoryWidth = inventoryWidth;
         this.inventoryHeight = inventoryHeight;
 
-        if(inventory instanceof BackpackBlockEntity)
-        {
+        if(inventory instanceof BackpackBlockEntity) {
             this.blockEntity = (BackpackBlockEntity) inventory;
             this.backpack = null;
-        } else if(inventory instanceof BackpackInventory)
-        {
+        } else if(inventory instanceof BackpackInventory) {
             this.backpack = playerInventory.player.getStackInHand(hand);
             this.blockEntity = null;
         }
@@ -44,8 +41,7 @@ public class BackpackContainer extends ScreenHandler
     }
 
     @Override
-    public void close(final PlayerEntity player)
-    {
+    public void close(final PlayerEntity player) {
         super.close(player);
         inventory.onClose(player);
     }

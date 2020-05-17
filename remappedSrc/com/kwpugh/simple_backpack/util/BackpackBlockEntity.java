@@ -3,7 +3,6 @@ package com.kwpugh.simple_backpack.util;
 import com.kwpugh.simple_backpack.Backpack;
 
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,6 +22,8 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     public int inventory_height = 6;
 
     public int players_using = 0;
+    public int players_using_old = 0;
+    public boolean is_open = false;
 
     public BackpackBlockEntity()
     {
@@ -100,9 +101,9 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag)
+    public void fromTag(CompoundTag tag)
     {
-        super.fromTag(state, tag);
+        super.fromTag(tag);
 
         inventory_width = tag.contains("inventory_width") ? tag.getInt("inventory_width") : 9;
         inventory_height = tag.contains("inventory_height") ? tag.getInt("inventory_height") : 6;
@@ -130,11 +131,11 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
         return toTag(tag);
     }
 
-//    @Override
-//    public void fromClientTag(BlockState state, CompoundTag tag)
-//    {
-//        fromTag(state, tag);
-//    }
+    @Override
+    public void fromClientTag(CompoundTag tag)
+    {
+        fromTag(tag);
+    }
 
     @Override
     public int getInventoryWidth()
@@ -147,11 +148,4 @@ public class BackpackBlockEntity extends LootableContainerBlockEntity implements
     {
         return inventory_height;
     }
-
-	@Override
-	public void fromClientTag(CompoundTag tag)
-	{
-		// TODO Auto-generated method stub
-
-	}
 }

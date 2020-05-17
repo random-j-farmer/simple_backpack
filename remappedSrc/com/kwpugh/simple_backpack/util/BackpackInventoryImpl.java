@@ -23,7 +23,7 @@ public interface BackpackInventoryImpl
         for(int i = 0; i < inventory.size(); ++i)
         {
             ItemStack itemStack = (ItemStack)inventory.get(i);
-
+            
             if (!itemStack.isEmpty())
             {
                 CompoundTag compoundTag = new CompoundTag();
@@ -44,7 +44,7 @@ public interface BackpackInventoryImpl
         {
             CompoundTag compoundTag = listTag.getCompound(i);
             int j = compoundTag.getInt("Slot");
-
+            
             if (j >= 0 && j < inventory.size())
             {
                 inventory.set(j, ItemStack.fromTag(compoundTag));
