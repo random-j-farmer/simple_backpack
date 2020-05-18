@@ -116,7 +116,7 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
     public void onOpen(PlayerEntity player)
     {
         Inventory.super.onOpen(player);
-        player.playSound(SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.PLAYERS, 1f, 1f);
+        player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1f, 1f);
     }
 
     @Override
@@ -130,6 +130,6 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
         }
 
         player.getStackInHand(hand).getTag().put("backpack", toTag());
-        player.playSound(SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.PLAYERS, 1f, 1f);
+        player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1f, 1f);
     }
 }

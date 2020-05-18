@@ -13,9 +13,6 @@ public class BackpackScreenHandler extends ScreenHandler
 {
     private final Inventory inventory;
     private final PlayerInventory playerInventory;
-
-    //public BackpackBlockEntity blockEntity;
-
     public final int inventoryWidth;
     public final int inventoryHeight;
 
@@ -28,16 +25,6 @@ public class BackpackScreenHandler extends ScreenHandler
         this.playerInventory = playerInventory;
         this.inventoryWidth = inventoryWidth;
         this.inventoryHeight = inventoryHeight;
-
-//        if(inventory instanceof BackpackBlockEntity)
-//        {
-//            this.blockEntity = (BackpackBlockEntity) inventory;
-//            this.backpack = null;
-//        } else if(inventory instanceof BackpackInventory)
-//        {
-//            this.backpack = playerInventory.player.getStackInHand(hand);
-//            this.blockEntity = null;
-//        }
 
         checkSize(inventory, inventoryWidth * inventoryHeight);
         inventory.onOpen(playerInventory.player);

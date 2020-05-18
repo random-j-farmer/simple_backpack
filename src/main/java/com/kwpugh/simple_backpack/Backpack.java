@@ -22,9 +22,6 @@ public class Backpack implements ModInitializer
     public static final String MOD_NAME = "SimpleBackpack";
     public static final Identifier BACKPACK_IDENTIFIER = new Identifier(MOD_ID, "backpack");
     public static final String BACKPACK_TRANSLATION_KEY = Util.createTranslationKey("container", BACKPACK_IDENTIFIER);
-
-    //public static BlockEntityType<BackpackBlockEntity> BACKPACK_ENTITY_TYPE;
-
     public static final Item BACKPACK = new BackpackItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
     @Override
