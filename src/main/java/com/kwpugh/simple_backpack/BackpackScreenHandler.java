@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Hand;
 
 public class BackpackScreenHandler extends ScreenHandler
@@ -42,23 +41,7 @@ public class BackpackScreenHandler extends ScreenHandler
 
         checkSize(inventory, inventoryWidth * inventoryHeight);
         inventory.onOpen(playerInventory.player);
-
         setupSlots(false);
-    }
-
-    //Prevents removing the backpack from the hotbar
-    @Override
-    public ItemStack onSlotClick(int slotNumber, int button, SlotActionType action, PlayerEntity player)
-    {
-    	if (this.getStacks().get(slotNumber).getItem() instanceof BackpackItem)
-        {
-            return ItemStack.EMPTY;
-        }
-        else
-        {
-        	return super.onSlotClick(slotNumber, button, action, player);
-        	//return transferSlot(player, slotNumber);
-        }
     }
 
     @Override
