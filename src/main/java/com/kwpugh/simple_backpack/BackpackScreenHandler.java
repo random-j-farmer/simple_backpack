@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Hand;
 
 public class BackpackScreenHandler extends ScreenHandler
@@ -30,6 +31,22 @@ public class BackpackScreenHandler extends ScreenHandler
         inventory.onOpen(playerInventory.player);
         setupSlots(false);
     }
+
+	@Override
+	public ItemStack onSlotClick(int slotId, int clickData, SlotActionType actionType, PlayerEntity playerEntity)
+	{
+		if (slotId >= 0) { // slotId < 0 are used for networking internals
+			ItemStack stack = getSlot(slotId).getStack();
+
+			if (stack.getItem() instanceof BackpackItem)
+			{
+				// Prevent moving bags around
+				return stack;
+			}
+		}
+
+		return super.onSlotClick(slotId, clickData, actionType, playerEntity);
+	}
 
     @Override
     public void close(final PlayerEntity player)
@@ -80,29 +97,34 @@ public class BackpackScreenHandler extends ScreenHandler
         final ItemStack originalStack = slot.getStack();
         Item testItem = originalStack.getItem();
 
-        if (slot != null && slot.hasStack() && testItem != Backpack.BACKPACK)  //make sure backpack don't into backpacks
+        if(testItem != Backpack.BACKPACK)
         {
-	        newStack = originalStack.copy();
-	        if (invSlot < this.inventory.size())
-	        {
-	            if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
-	            {
-	                return ItemStack.EMPTY;
-	            }
-	        }
-	        else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
-	        {
-	            return ItemStack.EMPTY;
-	        }
+        	 if (slot != null && slot.hasStack())
+             {
+     	        newStack = originalStack.copy();
+     	        if (invSlot < this.inventory.size())
+     	        {
+     	            if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
+     	            {
+     	                return ItemStack.EMPTY;
+     	            }
+     	        }
+     	        else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
+     	        {
+     	            return ItemStack.EMPTY;
+     	        }
 
-	        if (originalStack.isEmpty())
-	        {
-	            slot.setStack(ItemStack.EMPTY);
-	        }
-	        else
-	        {
-	            slot.markDirty();
-	        }
+     	        if (originalStack.isEmpty())
+     	        {
+     	            slot.setStack(ItemStack.EMPTY);
+     	        }
+     	        else
+     	        {
+     	            slot.markDirty();
+     	        }
+             }
+
+             return newStack;
         }
 
         return newStack;

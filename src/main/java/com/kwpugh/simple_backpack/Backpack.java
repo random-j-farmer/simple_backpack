@@ -20,9 +20,15 @@ public class Backpack implements ModInitializer
 
     public static final String MOD_ID = "simple_backpack";
     public static final String MOD_NAME = "SimpleBackpack";
+
     public static final Identifier BACKPACK_IDENTIFIER = new Identifier(MOD_ID, "backpack");
+    public static final Identifier VOID_PACK_IDENTIFIER = new Identifier(MOD_ID, "void_pack");
+
     public static final String BACKPACK_TRANSLATION_KEY = Util.createTranslationKey("container", BACKPACK_IDENTIFIER);
+    public static final String VOID_PACK_TRANSLATION_KEY = Util.createTranslationKey("container", VOID_PACK_IDENTIFIER);
+
     public static final Item BACKPACK = new BackpackItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+    public static final Item VOID_PACK = new VoidPackItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
     @Override
     public void onInitialize()
@@ -36,6 +42,7 @@ public class Backpack implements ModInitializer
         }));
 
         Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);
+        Registry.register(Registry.ITEM, VOID_PACK_IDENTIFIER, VOID_PACK);
     }
 
     public static void log(Level level, String message)
