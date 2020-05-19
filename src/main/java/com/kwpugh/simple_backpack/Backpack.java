@@ -4,6 +4,13 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.kwpugh.simple_backpack.backpack.BackpackInventoryInterface;
+import com.kwpugh.simple_backpack.backpack.BackpackItem;
+import com.kwpugh.simple_backpack.backpack.BackpackScreenHandler;
+import com.kwpugh.simple_backpack.voidpack.VoidPackInventoryInterface;
+import com.kwpugh.simple_backpack.voidpack.VoidPackItem;
+import com.kwpugh.simple_backpack.voidpack.VoidPackScreenHandler;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.item.Item;
@@ -38,7 +45,20 @@ public class Backpack implements ModInitializer
             final Hand hand = buf.readInt() == 0 ? Hand.MAIN_HAND : Hand.OFF_HAND;
             final BackpackInventoryInterface inventory = BackpackItem.getInventory(stack, hand, player);
 
+            System.out.println("backpack factory");
+
             return new BackpackScreenHandler(syncId, player.inventory, inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
+        }));
+
+        ContainerProviderRegistry.INSTANCE.registerFactory(VOID_PACK_IDENTIFIER, ((syncId, identifier, player, buf) -> {
+            final ItemStack stack = buf.readItemStack();
+            final Hand hand = buf.readInt() == 0 ? Hand.MAIN_HAND : Hand.OFF_HAND;
+            final VoidPackInventoryInterface inventory = VoidPackItem.getInventory(stack, hand, player);
+
+            System.out.println("void pack factory");
+
+
+            return new VoidPackScreenHandler(syncId, player.inventory, inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
         }));
 
         Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);

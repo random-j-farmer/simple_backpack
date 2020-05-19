@@ -1,6 +1,8 @@
-package com.kwpugh.simple_backpack;
+package com.kwpugh.simple_backpack.backpack;
 
 import java.util.List;
+
+import com.kwpugh.simple_backpack.Backpack;
 
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.client.item.TooltipContext;

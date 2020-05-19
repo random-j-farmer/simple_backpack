@@ -3,6 +3,6 @@
     "item.simple_backpack.backpack": "Backpack",
     "container.simple_backpack.backpack": "Simple Backpack",
     "item.simple_backpack.void_pack": "Void Pack",
-    "container.simple_backpack.void_pack.title": "WARNING!!! ITEMS WILL BE LOST",
+    "container.simple_backpack.void_pack": "WARNING!!! ITEMS WILL BE LOST",
     "itemGroup.simple_backpack.general": "Simple Backpack"
 }

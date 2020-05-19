@@ -1,4 +1,4 @@
-package com.kwpugh.simple_backpack;
+package com.kwpugh.simple_backpack.backpack;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 

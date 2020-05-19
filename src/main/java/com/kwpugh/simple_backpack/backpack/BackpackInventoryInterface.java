@@ -1,4 +1,4 @@
-package com.kwpugh.simple_backpack;
+package com.kwpugh.simple_backpack.backpack;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

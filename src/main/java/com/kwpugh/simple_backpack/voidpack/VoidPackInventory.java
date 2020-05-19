@@ -1,4 +1,5 @@
-package com.kwpugh.simple_backpack;
+package com.kwpugh.simple_backpack.voidpack;
+
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
@@ -10,7 +11,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.Hand;
 
-public class BackpackInventory implements Inventory, BackpackInventoryInterface
+public class VoidPackInventory implements Inventory, VoidPackInventoryInterface
 {
     public DefaultedList<ItemStack> items;
     public int inventory_width;
@@ -18,7 +19,7 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
     private final Hand hand;
     private final PlayerEntity player;
 
-    public BackpackInventory(CompoundTag items_tag, Hand hand, PlayerEntity player)
+    public VoidPackInventory(CompoundTag items_tag, Hand hand, PlayerEntity player)
     {
         this.hand = hand;
         this.player = player;
@@ -129,7 +130,7 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
             player.getStackInHand(hand).setTag(new CompoundTag());
         }
 
-        player.getStackInHand(hand).getTag().put("backpack", toTag());
+        player.getStackInHand(hand).getTag().put("void_pack", toTag());
         player.playSound(SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.PLAYERS, 1f, 1f);
     }
 }

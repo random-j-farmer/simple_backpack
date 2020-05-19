@@ -1,4 +1,8 @@
-package com.kwpugh.simple_backpack;
+package com.kwpugh.simple_backpack.voidpack;
+
+
+import com.kwpugh.simple_backpack.Backpack;
+import com.kwpugh.simple_backpack.backpack.BackpackItem;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,16 +14,16 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Hand;
 
-public class BackpackScreenHandler extends ScreenHandler
+public class VoidPackScreenHandler extends ScreenHandler
 {
     private final Inventory inventory;
     private final PlayerInventory playerInventory;
     public final int inventoryWidth;
     public final int inventoryHeight;
 
-    private ItemStack backpack;
+    //private ItemStack backpack;
 
-    public BackpackScreenHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand)
+    public VoidPackScreenHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand)
     {
         super(null, syncId);
         this.inventory = inventory;
@@ -38,7 +42,7 @@ public class BackpackScreenHandler extends ScreenHandler
 		if (slotId >= 0) { // slotId < 0 are used for networking internals
 			ItemStack stack = getSlot(slotId).getStack();
 
-			if (stack.getItem() instanceof BackpackItem)
+			if (stack.getItem() instanceof BackpackItem || stack.getItem() instanceof VoidPackItem)
 			{
 				// Prevent moving bags around
 				return stack;
@@ -97,7 +101,7 @@ public class BackpackScreenHandler extends ScreenHandler
         final ItemStack originalStack = slot.getStack();
         Item testItem = originalStack.getItem();
 
-        if(testItem != Backpack.BACKPACK)
+        if(testItem != Backpack.BACKPACK || testItem != Backpack.VOID_PACK)
         {
         	 if (slot != null && slot.hasStack())
              {
