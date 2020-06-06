@@ -1,13 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-      "CAC",
-      "ABA",
-      "CAC"
+      "ACA",
+      "CBC",
+      "ACA"
     ],
     "key": {
       "A": {
-        "item": "minecraft:wool"
+        "tag": "minecraft:wool"
       },
       "B": {
         "item": "minecraft:chest"
