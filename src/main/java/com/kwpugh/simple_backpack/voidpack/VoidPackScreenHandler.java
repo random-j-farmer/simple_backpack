@@ -44,7 +44,7 @@ public class VoidPackScreenHandler extends ScreenHandler
 		{
 			ItemStack stack = getSlot(slotId).getStack();
 			
-			if((stack.getItem() instanceof BackpackItem)  ||  (actionType == SlotActionType.SWAP || actionType == SlotActionType.QUICK_MOVE))
+			if((stack.getItem() instanceof BackpackItem)  ||  (actionType == SlotActionType.SWAP))
 			{
 				// Prevent moving bags around
 				return stack;

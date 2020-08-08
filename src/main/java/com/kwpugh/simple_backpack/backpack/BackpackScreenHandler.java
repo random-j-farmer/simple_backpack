@@ -40,8 +40,8 @@ public class BackpackScreenHandler extends ScreenHandler
 		if (slotId >= 0) // slotId < 0 are used for networking internals, to avoid array out of range (-999)
 		{
 			ItemStack stack = getSlot(slotId).getStack();
-			
-			if((stack.getItem() instanceof BackpackItem)  ||  (actionType == SlotActionType.SWAP || actionType == SlotActionType.QUICK_MOVE))
+
+			if((stack.getItem() instanceof BackpackItem)  ||  (actionType == SlotActionType.SWAP))
 			{
 				// Prevent moving bags around
 				return stack;
