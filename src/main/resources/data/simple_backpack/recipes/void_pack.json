@@ -10,7 +10,7 @@
         "tag": "minecraft:wool"
       },
       "B": {
-        "item": "minecraft:chest"
+        "tag": "c:chest"
       },
       "C": {
         "item": "minecraft:stone"

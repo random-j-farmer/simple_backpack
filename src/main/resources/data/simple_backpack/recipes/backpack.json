@@ -10,7 +10,7 @@
         "item": "minecraft:iron_ingot"
       },
       "B": {
-        "item": "minecraft:chest"
+        "tag": "c:chest"
       },
       "C": {
         "tag": "minecraft:wool"
