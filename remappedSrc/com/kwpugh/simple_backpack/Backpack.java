@@ -51,7 +51,7 @@ public class Backpack implements ModInitializer
             final Hand hand = buf.readInt() == 0 ? Hand.MAIN_HAND : Hand.OFF_HAND;
             final BackpackInventoryInterface inventory = BackpackItem.getInventory(stack, hand, player);
 
-            return new BackpackScreenHandler(syncId, player.inventory, inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
+            return new BackpackScreenHandler(syncId, player.getInventory(), inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
         }));
 
         ContainerProviderRegistry.INSTANCE.registerFactory(VOID_PACK_IDENTIFIER, ((syncId, identifier, player, buf) -> {
@@ -59,7 +59,7 @@ public class Backpack implements ModInitializer
             final Hand hand = buf.readInt() == 0 ? Hand.MAIN_HAND : Hand.OFF_HAND;
             final VoidPackInventoryInterface inventory = VoidPackItem.getInventory(stack, hand, player);
 
-            return new VoidPackScreenHandler(syncId, player.inventory, inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
+            return new VoidPackScreenHandler(syncId, player.getInventory(), inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
         }));
 
         Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);
