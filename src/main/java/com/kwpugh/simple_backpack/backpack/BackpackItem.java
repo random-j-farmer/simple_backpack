@@ -56,6 +56,6 @@ public class BackpackItem extends Item
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext)
 	{
-	    tooltip.add(new TranslatableText("item.simple_backpack.backpack").formatted(Formatting.YELLOW));
+	    tooltip.add(new TranslatableText("item.simple_backpack.backpack.tip1").formatted(Formatting.YELLOW));
 	}
 }
