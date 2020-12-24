@@ -24,12 +24,6 @@ public class VoidPackItem extends Item
 		super(settings);
 	}
 
-
-
-
-
-
-
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
     {
@@ -59,28 +53,9 @@ public class VoidPackItem extends Item
         return new VoidPackInventory(stack.getTag().getCompound("void_pack"), hand, player);
     }
 
-
-
-
-//	@Override
-//	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
-//	{
-//		ItemStack itemStack = player.getStackInHand(hand);
-//		player.setCurrentHand(hand);
-//
-//		if (!world.isClient)
-//		{
-//            player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
-//               return GenericContainerScreenHandler.createGeneric9x3(i, playerInventory, new BasicInventory(27));
-//            }, new TranslatableText("container.simple_backpack.void_pack.title")));
-//		}
-//
-//		return TypedActionResult.success(itemStack);
-//	}
-
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext)
 	{
-	    tooltip.add(new TranslatableText("item.simple_backpack.void_pack").formatted(Formatting.YELLOW));
+	    tooltip.add(new TranslatableText("item.simple_backpack.void_pack.tip1").formatted(Formatting.YELLOW));
 	}
 }
