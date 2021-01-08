@@ -1,0 +1,5 @@
+{
+  "replace": "false",
+  "values": ["simple_backpack:backpack", "simple_backpack:void_pack", "simple_backpack:ender_pack"
+         ]
+}

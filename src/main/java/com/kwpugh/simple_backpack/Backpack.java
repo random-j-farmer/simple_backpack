@@ -15,6 +15,7 @@ import com.kwpugh.simple_backpack.voidpack.VoidPackScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.fabricmc.loader.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeInfo;
+import top.theillusivec4.curios.api.SlotTypePreset;
 
 public class Backpack implements ModInitializer
 {
@@ -65,6 +69,11 @@ public class Backpack implements ModInitializer
         Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);
         Registry.register(Registry.ITEM, VOID_PACK_IDENTIFIER, VOID_PACK);
         Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
+        
+    	if(FabricLoader.INSTANCE.isModLoaded("curios"))
+    	{
+        	CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.BACK.getInfoBuilder().size(3).build());   		
+    	}
     }
 
     public static void log(Level level, String message)

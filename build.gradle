@@ -13,6 +13,17 @@ group = project.maven_group
 minecraft {
 }
 
+repositories {
+
+	maven {
+		url = "https://maven.theillusivec4.top/"
+	}
+	
+	maven {
+		url = 'https://dl.bintray.com/ladysnake/libs'
+	}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -22,6 +33,11 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	modCompile "me.shedaniel:RoughlyEnoughItems:5.4.2"
+	
+  	//Curios API
+   	modImplementation "top.theillusivec4.curios:curios-fabric:${curios_version}"
+   	modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+	include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 }
 
 processResources {
