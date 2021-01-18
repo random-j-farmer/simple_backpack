@@ -1,8 +1,8 @@
 package com.kwpugh.simple_backpack.voidpack;
 
-
 import com.kwpugh.simple_backpack.Backpack;
 import com.kwpugh.simple_backpack.backpack.BackpackItem;
+import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,8 +21,6 @@ public class VoidPackScreenHandler extends ScreenHandler
     public final int inventoryWidth;
     public final int inventoryHeight;
 
-    //private ItemStack backpack;
-
     public VoidPackScreenHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand)
     {
         super(null, syncId);
@@ -39,29 +37,16 @@ public class VoidPackScreenHandler extends ScreenHandler
 	@Override
 	public ItemStack onSlotClick(int slotId, int clickData, SlotActionType actionType, PlayerEntity playerEntity)
 	{
-		
 		if (slotId >= 0) // slotId < 0 are used for networking internals, to avoid array out of range (-999)
 		{
 			ItemStack stack = getSlot(slotId).getStack();
 			
-			if((stack.getItem() instanceof BackpackItem)  ||  (actionType == SlotActionType.SWAP))
+			if((stack.getItem() instanceof BackpackItem)  ||  (stack.getItem() instanceof VoidPackItem) || (stack.getItem() instanceof EnderPackItem) || (actionType == SlotActionType.SWAP))
 			{
 				// Prevent moving bags around
 				return stack;
-			}
-			
+			}			
 		}		
-		
-// SAVE - OLD LOGIC		
-//		if (slotId >= 0) { // slotId < 0 are used for networking internals
-//			ItemStack stack = getSlot(slotId).getStack();
-//
-//			if (stack.getItem() instanceof BackpackItem || stack.getItem() instanceof VoidPackItem)
-//			{
-//				// Prevent moving bags around
-//				return stack;
-//			}
-//		}
 
 		return super.onSlotClick(slotId, clickData, actionType, playerEntity);
 	}

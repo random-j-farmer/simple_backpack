@@ -47,20 +47,6 @@ public class BackpackScreenHandler extends ScreenHandler
 				return stack;
 			}			
 		}
-	
-		
-// SAVE _ OLD LOGIC		
-//		if (slotId >= 0) // slotId < 0 are used for networking internals
-//		{ 
-//			ItemStack stack = getSlot(slotId).getStack();
-//			if (stack.getItem() instanceof BackpackItem)
-//			{
-//				// Prevent moving bags around
-//				return stack;
-//			}
-//		}
-		
-
 
 		return super.onSlotClick(slotId, clickData, actionType, playerEntity);
 	}
