@@ -2,8 +2,8 @@ package com.kwpugh.simple_backpack.voidpack;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.collection.DefaultedList;
 
 public interface VoidPackInventoryInterface
@@ -16,9 +16,9 @@ public interface VoidPackInventoryInterface
     public int getInventoryWidth();
     public int getInventoryHeight();
 
-    default void writeItemsToTag(DefaultedList<ItemStack> inventory, CompoundTag tag)
+    default void writeItemsToTag(DefaultedList<ItemStack> inventory, NbtCompound tag)
     {
-        ListTag listTag = new ListTag();
+        NbtList listTag = new NbtList();
 
         for(int i = 0; i < inventory.size(); ++i)
         {
@@ -26,7 +26,7 @@ public interface VoidPackInventoryInterface
 
             if (!itemStack.isEmpty())
             {
-                CompoundTag compoundTag = new CompoundTag();
+                NbtCompound compoundTag = new NbtCompound();
 //                compoundTag.putInt("slot", i);
 //                itemStack.toTag(compoundTag);
 //                listTag.add(compoundTag);
@@ -36,18 +36,18 @@ public interface VoidPackInventoryInterface
 //        tag.put("items", listTag);
     }
 
-    default void readItemsFromTag(DefaultedList<ItemStack> inventory, CompoundTag tag)
+    default void readItemsFromTag(DefaultedList<ItemStack> inventory, NbtCompound tag)
     {
-        ListTag listTag = tag.getList("items", 10);
+        NbtList listTag = tag.getList("items", 10);
 
         for(int i = 0; i < listTag.size(); ++i)
         {
-            CompoundTag compoundTag = listTag.getCompound(i);
+            NbtCompound compoundTag = listTag.getCompound(i);
             int j = compoundTag.getInt("slot");
 
             if (j >= 0 && j < inventory.size())
             {
-                inventory.set(j, ItemStack.fromTag(compoundTag));
+                inventory.set(j, ItemStack.fromNbt(compoundTag));
             }
         }
     }

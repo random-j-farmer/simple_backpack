@@ -33,37 +33,28 @@ public class BackpackScreenHandler extends ScreenHandler
         inventory.onOpen(playerInventory.player);
         setupSlots(false);
     }
-   
-	@Override
-	public ItemStack onSlotClick(int slotId, int clickData, SlotActionType actionType, PlayerEntity playerEntity)
-	{	
-		if (slotId >= 0) // slotId < 0 are used for networking internals, to avoid array out of range (-999)
-		{
-			ItemStack stack = getSlot(slotId).getStack();
 
-			if((stack.getItem() instanceof BackpackItem)  ||  (actionType == SlotActionType.SWAP))
-			{
-				// Prevent moving bags around
-				return stack;
-			}			
-		}
-	
-		
-// SAVE _ OLD LOGIC		
-//		if (slotId >= 0) // slotId < 0 are used for networking internals
-//		{ 
-//			ItemStack stack = getSlot(slotId).getStack();
-//			if (stack.getItem() instanceof BackpackItem)
-//			{
-//				// Prevent moving bags around
-//				return stack;
-//			}
-//		}
-		
+    public class BackpackLockedSlot extends Slot
+    {
+        public BackpackLockedSlot(Inventory inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
+        }
 
+        @Override
+        public boolean canTakeItems(PlayerEntity playerEntity) {
+            return stackMovementIsAllowed(getStack());
+        }
 
-		return super.onSlotClick(slotId, clickData, actionType, playerEntity);
-	}
+        @Override
+        public boolean canInsert(ItemStack stack)
+        {
+            return stackMovementIsAllowed(stack);
+        }
+
+        public boolean stackMovementIsAllowed(ItemStack stack) {
+            return !(stack.getItem() instanceof BackpackItem);
+        }
+    }
 
     @Override
     public void close(final PlayerEntity player)
@@ -82,7 +73,7 @@ public class BackpackScreenHandler extends ScreenHandler
         {
            for(m = 0; m < 9; ++m)
            {
-              this.addSlot(new Slot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
+              this.addSlot(new BackpackLockedSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
            }
         }
 
@@ -90,13 +81,13 @@ public class BackpackScreenHandler extends ScreenHandler
         {
            for(m = 0; m < 9; ++m)
            {
-              this.addSlot(new Slot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
+              this.addSlot(new BackpackLockedSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
            }
         }
 
         for(n = 0; n < 9; ++n)
         {
-           this.addSlot(new Slot(playerInventory, n, 8 + n * 18, 161 + i));
+           this.addSlot(new BackpackLockedSlot(playerInventory, n, 8 + n * 18, 161 + i));
         }
     }
 

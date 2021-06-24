@@ -9,7 +9,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -42,12 +42,12 @@ public class BackpackItem extends Item
     {
         if(!stack.hasTag())
         {
-            stack.setTag(new CompoundTag());
+            stack.setTag(new NbtCompound());
         }
 
         if(!stack.getTag().contains("backpack"))
         {
-            stack.getTag().put("backpack", new CompoundTag());
+            stack.getTag().put("backpack", new NbtCompound());
         }
 
         return new BackpackInventory(stack.getTag().getCompound("backpack"), hand, player);

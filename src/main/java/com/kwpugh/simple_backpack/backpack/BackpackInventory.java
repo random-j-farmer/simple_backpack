@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
@@ -18,7 +18,7 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
     private final Hand hand;
     private final PlayerEntity player;
 
-    public BackpackInventory(CompoundTag items_tag, Hand hand, PlayerEntity player)
+    public BackpackInventory(NbtCompound items_tag, Hand hand, PlayerEntity player)
     {
         this.hand = hand;
         this.player = player;
@@ -92,7 +92,7 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
         return true;
     }
 
-    public void fromTag(CompoundTag tag)
+    public void fromTag(NbtCompound tag)
     {
         this.inventory_width = tag.contains("inventory_width") ? tag.getInt("inventory_width") : 9;
         this.inventory_height = tag.contains("inventory_height") ? tag.getInt("inventory_height") : 6;
@@ -101,9 +101,9 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
         readItemsFromTag(this.items, tag);
     }
 
-    public CompoundTag toTag()
+    public NbtCompound toTag()
     {
-        CompoundTag tag = new CompoundTag();
+        NbtCompound tag = new NbtCompound();
         tag.putInt("inventory_width", inventory_width);
         tag.putInt("inventory_height", inventory_height);
 
@@ -126,7 +126,7 @@ public class BackpackInventory implements Inventory, BackpackInventoryInterface
 
         if(!player.getStackInHand(hand).hasTag())
         {
-            player.getStackInHand(hand).setTag(new CompoundTag());
+            player.getStackInHand(hand).setTag(new NbtCompound());
         }
 
         player.getStackInHand(hand).getTag().put("backpack", toTag());

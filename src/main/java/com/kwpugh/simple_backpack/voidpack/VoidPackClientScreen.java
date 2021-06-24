@@ -33,8 +33,9 @@ public class VoidPackClientScreen extends HandledScreen<VoidPackScreenHandler>
 
 	   protected void drawBackground(MatrixStack matrixStack, float f, int mouseY, int i)
 	   {
-	      RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-	      this.client.getTextureManager().bindTexture(TEXTURE);
+		   RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		   RenderSystem.setShaderTexture(0,TEXTURE);
+
 	      int j = (this.width - this.backgroundWidth) / 2;
 	      int k = (this.height - this.backgroundHeight) / 2;
 	      this.drawTexture(matrixStack, j, k, 0, 0, this.backgroundWidth, this.rows * 18 + 17);
@@ -44,6 +45,6 @@ public class VoidPackClientScreen extends HandledScreen<VoidPackScreenHandler>
 	   protected void drawForeground(MatrixStack matrixStack, int i, int j)
 	   {
 	      this.textRenderer.draw(matrixStack, this.title, 8.0F, 6.0F, 4210752);
-	      this.textRenderer.draw(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.backgroundHeight - 96 + 2), 4210752);
+	      this.textRenderer.draw(matrixStack, this.playerInventoryTitle, 8.0F, (float)(this.backgroundHeight - 96 + 2), 4210752);
 	   }
 }

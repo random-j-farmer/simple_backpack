@@ -9,7 +9,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -48,12 +48,12 @@ public class VoidPackItem extends Item
     {
         if(!stack.hasTag())
         {
-            stack.setTag(new CompoundTag());
+            stack.setTag(new NbtCompound());
         }
 
         if(!stack.getTag().contains("void_pack"))
         {
-            stack.getTag().put("void_pack", new CompoundTag());
+            stack.getTag().put("void_pack", new NbtCompound());
         }
 
         return new VoidPackInventory(stack.getTag().getCompound("void_pack"), hand, player);
