@@ -1,12 +1,32 @@
+# gradle
+
 .gradle/
-.settings/
-.vscode/
-bin/
 build/
 out/
-run/
-.classpath
-.project
+classes/
+
+# eclipse
+
+*.launch
+
+# idea
+
+.idea/
 *.iml
 *.ipr
 *.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# fabric
+
+run/
+remappedSrc/
+logs/
+
