@@ -40,17 +40,17 @@ public class BackpackItem extends Item
 
     public static BackpackInventory getInventory(ItemStack stack, Hand hand, PlayerEntity player)
     {
-        if(!stack.hasTag())
+        if(!stack.hasNbt())
         {
-            stack.setTag(new NbtCompound());
+            stack.setNbt(new NbtCompound());
         }
 
-        if(!stack.getTag().contains("backpack"))
+        if(!stack.getNbt().contains("backpack"))
         {
-            stack.getTag().put("backpack", new NbtCompound());
+            stack.getNbt().put("backpack", new NbtCompound());
         }
 
-        return new BackpackInventory(stack.getTag().getCompound("backpack"), hand, player);
+        return new BackpackInventory(stack.getNbt().getCompound("backpack"), hand, player);
     }
 
 	@Override

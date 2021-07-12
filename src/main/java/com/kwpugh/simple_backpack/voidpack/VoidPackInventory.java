@@ -125,12 +125,12 @@ public class VoidPackInventory implements Inventory, VoidPackInventoryInterface
     {
         Inventory.super.onClose(player);
 
-        if(!player.getStackInHand(hand).hasTag())
+        if(!player.getStackInHand(hand).hasNbt())
         {
-            player.getStackInHand(hand).setTag(new NbtCompound());
+            player.getStackInHand(hand).setNbt(new NbtCompound());
         }
 
-        player.getStackInHand(hand).getTag().put("void_pack", toTag());
+        player.getStackInHand(hand).getNbt().put("void_pack", toTag());
         player.playSound(SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.PLAYERS, 1f, 1f);
     }
 }
