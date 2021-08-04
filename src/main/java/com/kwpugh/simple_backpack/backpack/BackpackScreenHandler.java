@@ -1,7 +1,5 @@
 package com.kwpugh.simple_backpack.backpack;
 
-import com.kwpugh.simple_backpack.Backpack;
-
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -49,12 +47,14 @@ public class BackpackScreenHandler extends ScreenHandler
 
     public class BackpackLockedSlot extends Slot
     {
-        public BackpackLockedSlot(Inventory inventory, int index, int x, int y) {
+        public BackpackLockedSlot(Inventory inventory, int index, int x, int y)
+        {
             super(inventory, index, x, y);
         }
 
         @Override
-        public boolean canTakeItems(PlayerEntity playerEntity) {
+        public boolean canTakeItems(PlayerEntity playerEntity)
+        {
             return stackMovementIsAllowed(getStack());
         }
 
@@ -64,8 +64,13 @@ public class BackpackScreenHandler extends ScreenHandler
             return stackMovementIsAllowed(stack);
         }
 
-        public boolean stackMovementIsAllowed(ItemStack stack) {
-            return !(stack.getItem() instanceof BackpackItem);
+        public boolean stackMovementIsAllowed(ItemStack stack)
+        {
+            Item testItem = stack.getItem();
+            if(stack.getItem() instanceof BackpackItem) return false;
+            if(SHULKER_BOXES.contains(testItem)) return false;
+
+            return true;
         }
     }
 
@@ -118,34 +123,33 @@ public class BackpackScreenHandler extends ScreenHandler
         ItemStack originalStack = slot.getStack();
         Item testItem = originalStack.getItem();
 
-        if(testItem != Backpack.BACKPACK && !SHULKER_BOXES.contains(testItem))
+        if(testItem instanceof BackpackItem) return ItemStack.EMPTY;
+        if(SHULKER_BOXES.contains(testItem)) return ItemStack.EMPTY;
+
+
+        if (slot.hasStack())
         {
-        	 if (slot != null && slot.hasStack())
-             {
-     	        newStack = originalStack.copy();
-     	        if (invSlot < this.inventory.size())
-     	        {
-     	            if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
-     	            {
-     	                return ItemStack.EMPTY;
-     	            }
-     	        }
-     	        else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
-     	        {
-     	            return ItemStack.EMPTY;
-     	        }
+            newStack = originalStack.copy();
+            if (invSlot < this.inventory.size())
+            {
+                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
+                {
+                  return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
+            {
+                 return ItemStack.EMPTY;
+            }
 
-     	        if (originalStack.isEmpty())
-     	        {
-     	            slot.setStack(ItemStack.EMPTY);
-     	        }
-     	        else
-     	        {
-     	            slot.markDirty();
-     	        }
-             }
-
-             return newStack;
+            if (originalStack.isEmpty())
+            {
+                slot.setStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.markDirty();
+            }
         }
 
         return newStack;
