@@ -7,9 +7,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
+import com.google.common.collect.Sets;
+
+import java.util.Set;
 
 public class BackpackScreenHandler extends ScreenHandler
 {
@@ -18,6 +22,16 @@ public class BackpackScreenHandler extends ScreenHandler
     public final int inventoryWidth;
     public final int inventoryHeight;
     public final String customTitle;
+    public static final Set<Item> SHULKER_BOXES;
+
+    static
+    {
+        SHULKER_BOXES = Sets.newHashSet(Items.SHULKER_BOX, Items.BLACK_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
+                Items.BROWN_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.GRAY_SHULKER_BOX, Items.GREEN_SHULKER_BOX,
+                Items.LIGHT_BLUE_SHULKER_BOX, Items.LIGHT_GRAY_SHULKER_BOX, Items.LIME_SHULKER_BOX,
+                Items.MAGENTA_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.RED_SHULKER_BOX,
+                Items.WHITE_SHULKER_BOX, Items.YELLOW_SHULKER_BOX, Items.PURPLE_SHULKER_BOX);
+    }
 
     public BackpackScreenHandler(final int syncId, final PlayerInventory playerInventory, final Inventory inventory, final int inventoryWidth, final int inventoryHeight, final Hand hand, String customTitle)
     {
@@ -100,11 +114,11 @@ public class BackpackScreenHandler extends ScreenHandler
     public ItemStack transferSlot(final PlayerEntity player, final int invSlot)
     {
         ItemStack newStack = ItemStack.EMPTY;
-        final Slot slot = this.slots.get(invSlot);
-        final ItemStack originalStack = slot.getStack();
+        Slot slot = this.slots.get(invSlot);
+        ItemStack originalStack = slot.getStack();
         Item testItem = originalStack.getItem();
 
-        if(testItem != Backpack.BACKPACK)
+        if(testItem != Backpack.BACKPACK && !SHULKER_BOXES.contains(testItem))
         {
         	 if (slot != null && slot.hasStack())
              {
