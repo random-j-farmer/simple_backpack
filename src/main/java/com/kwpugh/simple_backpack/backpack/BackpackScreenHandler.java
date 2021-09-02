@@ -126,7 +126,6 @@ public class BackpackScreenHandler extends ScreenHandler
         if(testItem instanceof BackpackItem) return ItemStack.EMPTY;
         if(SHULKER_BOXES.contains(testItem)) return ItemStack.EMPTY;
 
-
         if (slot.hasStack())
         {
             newStack = originalStack.copy();

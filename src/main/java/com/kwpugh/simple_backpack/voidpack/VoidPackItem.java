@@ -27,6 +27,7 @@ public class VoidPackItem extends Item
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
     {
+        user.setCurrentHand(hand);
         if(!world.isClient)
         {
             ContainerProviderRegistry.INSTANCE.openContainer(Backpack.VOID_PACK_IDENTIFIER, user, buf -> {
