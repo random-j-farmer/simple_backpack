@@ -12,7 +12,6 @@ public interface BackpackInventoryInterface
     {
         return (Inventory) this;
     }
-
     public int getInventoryWidth();
     public int getInventoryHeight();
 
