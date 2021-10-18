@@ -27,13 +27,8 @@ public interface VoidPackInventoryInterface
             if (!itemStack.isEmpty())
             {
                 NbtCompound compoundTag = new NbtCompound();
-//                compoundTag.putInt("slot", i);
-//                itemStack.toTag(compoundTag);
-//                listTag.add(compoundTag);
             }
         }
-
-//        tag.put("items", listTag);
     }
 
     default void readItemsFromTag(DefaultedList<ItemStack> inventory, NbtCompound tag)
