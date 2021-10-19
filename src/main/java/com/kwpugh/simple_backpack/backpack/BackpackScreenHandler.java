@@ -1,5 +1,6 @@
 package com.kwpugh.simple_backpack.backpack;
 
+import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;

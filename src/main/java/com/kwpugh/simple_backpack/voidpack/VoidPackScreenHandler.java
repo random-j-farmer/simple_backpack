@@ -2,6 +2,7 @@ package com.kwpugh.simple_backpack.voidpack;
 
 import com.kwpugh.simple_backpack.Backpack;
 import com.kwpugh.simple_backpack.backpack.BackpackItem;
+import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
 import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,8 +52,9 @@ public class VoidPackScreenHandler extends ScreenHandler
             return stackMovementIsAllowed(stack);
         }
 
-        public boolean stackMovementIsAllowed(ItemStack stack) {
-            return !(stack.getItem() instanceof BackpackItem);
+        public boolean stackMovementIsAllowed(ItemStack stack)
+        {
+            return !(stack.getItem() instanceof BackpackItem || stack.getItem() instanceof SimpleBundleItem);
         }
     }
 
