@@ -1,9 +1,9 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-      "B B",
+      " B ",
       "A A",
-      "AAA"
+      " A "
     ],
     "key": {
       "A": {
@@ -14,7 +14,7 @@
       }
     },
     "result": {
-      "item": "simple_backpack:better_bundle",
+      "item": "simple_backpack:simple_bundle",
       "count": 1
     }
   }

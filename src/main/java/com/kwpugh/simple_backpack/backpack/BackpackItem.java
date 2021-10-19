@@ -25,6 +25,12 @@ public class BackpackItem extends Item
     }
 
     @Override
+    public boolean canBeNested()
+    {
+        return false;
+    }
+
+    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
     {
         user.setCurrentHand(hand);

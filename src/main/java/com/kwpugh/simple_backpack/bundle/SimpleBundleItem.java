@@ -37,16 +37,21 @@ import java.util.stream.Stream;
     class: BundleItem
  */
 
-public class BetterBundleItem extends Item
+public class SimpleBundleItem extends Item
 {
     private static final int ITEM_BAR_COLOR = MathHelper.packRgb(0.4F, 0.4F, 1.0F);
+    private final int maxStorage;
 
-    private final int maxCapacity;
-
-    public BetterBundleItem(Settings settings, int maxCapacity)
+    public SimpleBundleItem(Settings settings, int maxStorage)
     {
         super(settings);
-        this.maxCapacity = maxCapacity;
+        this.maxStorage = maxStorage;
+    }
+
+    @Override
+    public boolean canBeNested()
+    {
+        return false;
     }
 
     @Override
@@ -62,9 +67,10 @@ public class BetterBundleItem extends Item
             if (slotStack.isEmpty())
             {
                 getTopStack(slotStack).ifPresent(removedStack -> addToBundle(slotStack, slot.insertStack(removedStack)));
-            } else if (slotStack.getItem().canBeNested())
+            }
+            else if (slotStack.getItem().canBeNested())
             {
-                int i = (maxCapacity - getBundleOccupancy(stack)) / getItemOccupancy(slotStack);
+                int i = (maxStorage - getBundleOccupancy(stack)) / getItemOccupancy(slotStack);
                 addToBundle(stack, slot.takeStackRange(slotStack.getCount(), i, player));
             }
 
@@ -113,7 +119,7 @@ public class BetterBundleItem extends Item
     @Environment(EnvType.CLIENT)
     public int getItemBarStep(ItemStack stack)
     {
-        return Math.min(13 * getBundleOccupancy(stack) / maxCapacity, 13);
+        return Math.min(13 * getBundleOccupancy(stack) / maxStorage, 13);
     }
 
     @Override
@@ -127,14 +133,14 @@ public class BetterBundleItem extends Item
     {
         if (!stack.isEmpty() && stack.getItem().canBeNested())
         {
-            var tag = bundle.getOrCreateNbt();
+            NbtCompound tag = bundle.getOrCreateNbt();
             if (!tag.contains("Items"))
             {
                 tag.put("Items", new NbtList());
             }
 
-            var items = tag.getList("Items", 10);
-            var inv = new BundleInventory(bundle, items);
+            NbtList items = tag.getList("Items", 10);
+            BundleInventory inv = new BundleInventory(bundle, items);
             int remainder = stack.getCount() - inv.addStack(stack).getCount();
             tag.put("Items", inv.getTags());
             return remainder;
@@ -151,7 +157,7 @@ public class BetterBundleItem extends Item
         {
             return 4 + getBundledStacks(stack).mapToInt((itemStack) -> getItemOccupancy(itemStack) * itemStack.getCount()).sum();
         }
-        else if (stack.getItem() instanceof BetterBundleItem)
+        else if (stack.getItem() instanceof SimpleBundleItem)
         {
             return 4 + getBundleOccupancy(stack);
         }
@@ -165,22 +171,22 @@ public class BetterBundleItem extends Item
 
     private static Optional<ItemStack> getTopStack(ItemStack itemStack)
     {
-        var tag = itemStack.getOrCreateNbt();
+        NbtCompound tag = itemStack.getOrCreateNbt();
         if (!tag.contains("Items"))
         {
             return Optional.empty();
         }
         else
         {
-            var items = tag.getList("Items", 10);
+            NbtList items = tag.getList("Items", 10);
             if (items.isEmpty())
             {
                 return Optional.empty();
             }
             else
             {
-                var item = items.getCompound(0);
-                var stack = ItemStack.fromNbt(item);
+                NbtCompound item = items.getCompound(0);
+                ItemStack stack = ItemStack.fromNbt(item);
                 items.remove(0);
                 return Optional.of(stack);
             }
@@ -189,7 +195,7 @@ public class BetterBundleItem extends Item
 
     private static boolean dumpBundle(ItemStack itemStack, PlayerEntity playerEntity)
     {
-        var tag = itemStack.getOrCreateNbt();
+        NbtCompound tag = itemStack.getOrCreateNbt();
         if (!tag.contains("Items"))
         {
             return false;
@@ -198,12 +204,12 @@ public class BetterBundleItem extends Item
         {
             if (playerEntity instanceof ServerPlayerEntity)
             {
-                var items = tag.getList("Items", 10);
+                NbtList items = tag.getList("Items", 10);
 
                 for(int i = 0; i < items.size(); ++i)
                 {
-                    var item = items.getCompound(i);
-                    var stack = ItemStack.fromNbt(item);
+                    NbtCompound item = items.getCompound(i);
+                    ItemStack stack = ItemStack.fromNbt(item);
                     playerEntity.dropItem(stack, true);
                 }
             }
@@ -215,14 +221,14 @@ public class BetterBundleItem extends Item
 
     private static Stream<ItemStack> getBundledStacks(ItemStack stack)
     {
-        var compoundTag = stack.getNbt();
+        NbtCompound compoundTag = stack.getNbt();
         if (compoundTag == null)
         {
             return Stream.empty();
         }
         else
         {
-            var listTag = compoundTag.getList("Items", 10);
+            NbtList listTag = compoundTag.getList("Items", 10);
             return listTag.stream().map(NbtCompound.class::cast).map(ItemStack::fromNbt);
         }
     }
@@ -233,14 +239,14 @@ public class BetterBundleItem extends Item
     {
         DefaultedList<ItemStack> defaultedList = DefaultedList.of();
         getBundledStacks(stack).forEach(defaultedList::add);
-        return Optional.of(new BundleTooltipData(defaultedList, (int) (((float) getBundleOccupancy(stack) / (float) maxCapacity) * 64)));
+        return Optional.of(new BundleTooltipData(defaultedList, (int) (((float) getBundleOccupancy(stack) / (float) maxStorage) * 64)));
     }
 
     @Override
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
     {
-        tooltip.add((new TranslatableText("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxCapacity)).formatted(Formatting.GRAY));
+        tooltip.add((new TranslatableText("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxStorage)).formatted(Formatting.GRAY));
     }
 
     private class BundleInventory implements Inventory
@@ -269,7 +275,7 @@ public class BetterBundleItem extends Item
         {
             ItemStack insertStack = stack.copy();
             int itemOccupancy = getItemOccupancy(stack);
-            int insertCount = Math.min(stack.getCount(), (maxCapacity - count) / itemOccupancy);
+            int insertCount = Math.min(stack.getCount(), (maxStorage - count) / itemOccupancy);
             if (insertCount == 0) return insertStack;
             int remainder = insertStack.getCount() - insertCount;
             insertStack.setCount(insertCount);
@@ -329,7 +335,7 @@ public class BetterBundleItem extends Item
 
         public NbtList getTags()
         {
-            var listTag = new NbtList();
+            NbtList listTag = new NbtList();
 
             for(int i = 0; i < this.size(); ++i)
             {

@@ -26,6 +26,12 @@ public class EnderPackItem extends Item
 	public static final TranslatableText TITLE = new TranslatableText("container.simple_backpack.ender_pack");
 
 	@Override
+	public boolean canBeNested()
+	{
+		return false;
+	}
+
+	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
 	{
 		ItemStack itemStack = player.getStackInHand(hand);

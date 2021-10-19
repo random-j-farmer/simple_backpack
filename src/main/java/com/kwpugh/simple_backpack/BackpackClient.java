@@ -24,6 +24,6 @@ public class BackpackClient implements ClientModInitializer
         ScreenProviderRegistry.INSTANCE.<BackpackScreenHandler>registerFactory(Backpack.BACKPACK_IDENTIFIER, (container -> new BackpackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText(Backpack.BACKPACK_TRANSLATION_KEY))));
         ScreenProviderRegistry.INSTANCE.<VoidPackScreenHandler>registerFactory(Backpack.VOID_PACK_IDENTIFIER, (container -> new VoidPackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText(Backpack.VOID_PACK_TRANSLATION_KEY))));
         
-        FabricModelPredicateProviderRegistry.register(Backpack.BETTER_BUNDLE, new Identifier("filled"), (itemStack, clientWorld, livingEntity, i) -> Backpack.BETTER_BUNDLE.getItemBarStep(itemStack));
+        FabricModelPredicateProviderRegistry.register(Backpack.SIMPLE_BUNDLE, new Identifier("filled"), (itemStack, clientWorld, livingEntity, i) -> Backpack.SIMPLE_BUNDLE.getItemBarStep(itemStack));
     }
 }
