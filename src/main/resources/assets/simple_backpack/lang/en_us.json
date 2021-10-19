@@ -9,5 +9,7 @@
     "item.simple_backpack.ender_pack": "Ender Pack",
     "container.simple_backpack.ender_pack": "Enderchest on the go",
 
+    "item.simple_backpack.better_bundle": "Better Bundle",
+
     "itemGroup.simple_backpack.simple_backpack_group": "Simple Backpack"
 }

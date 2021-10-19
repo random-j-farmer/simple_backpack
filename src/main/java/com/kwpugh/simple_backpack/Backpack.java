@@ -1,5 +1,6 @@
 package com.kwpugh.simple_backpack;
 
+import com.kwpugh.simple_backpack.bundle.BetterBundleItem;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,6 +44,8 @@ public class Backpack implements ModInitializer
     public static final Item VOID_PACK = new VoidPackItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1));
     public static final Item ENDER_PACK = new EnderPackItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1));
 
+    public static final Item BETTER_BUNDLE = new BetterBundleItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1),  3456);
+
     @Override
     public void onInitialize()
     {
@@ -66,6 +69,7 @@ public class Backpack implements ModInitializer
         Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);
         Registry.register(Registry.ITEM, VOID_PACK_IDENTIFIER, VOID_PACK);
         Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "better_bundle"), BETTER_BUNDLE);
     }
 
     public static void log(Level level, String message)
