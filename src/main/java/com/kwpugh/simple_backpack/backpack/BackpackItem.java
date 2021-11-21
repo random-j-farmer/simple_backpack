@@ -57,6 +57,12 @@ public class BackpackItem extends Item
         return new BackpackInventory(stack.getNbt().getCompound("backpack"), hand, player);
     }
 
+    @Override
+    public boolean canBeNested()
+    {
+        return false;
+    }
+
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext)
 	{

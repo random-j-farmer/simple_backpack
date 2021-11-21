@@ -36,23 +36,32 @@ public class VoidPackScreenHandler extends ScreenHandler
 
     public class BackpackLockedSlot extends Slot
     {
-        public BackpackLockedSlot(Inventory inventory, int index, int x, int y) {
+        public BackpackLockedSlot(Inventory inventory, int index, int x, int y)
+        {
             super(inventory, index, x, y);
         }
 
         @Override
-        public boolean canTakeItems(PlayerEntity playerEntity) {
+        public boolean canTakeItems(PlayerEntity playerEntity)
+        {
             return stackMovementIsAllowed(getStack());
         }
 
         @Override
         public boolean canInsert(ItemStack stack)
         {
+            Item testItem = stack.getItem();
+            if(testItem instanceof VoidPackItem) return false;
+
             return stackMovementIsAllowed(stack);
         }
 
-        public boolean stackMovementIsAllowed(ItemStack stack) {
-            return !(stack.getItem() instanceof BackpackItem);
+        public boolean stackMovementIsAllowed(ItemStack stack)
+        {
+            Item testItem = stack.getItem();
+            if(testItem instanceof VoidPackItem) return false;
+
+            return true;
         }
     }
 
@@ -105,7 +114,7 @@ public class VoidPackScreenHandler extends ScreenHandler
         final ItemStack originalStack = slot.getStack();
         Item testItem = originalStack.getItem();
 
-        if(testItem != Backpack.BACKPACK || testItem != Backpack.VOID_PACK)
+        if(testItem != Backpack.BACKPACK || testItem != Backpack.VOID_PACK || testItem != Backpack.ENDER_PACK)
         {
         	 if (slot != null && slot.hasStack())
              {

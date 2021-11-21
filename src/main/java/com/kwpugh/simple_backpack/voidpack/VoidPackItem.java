@@ -54,6 +54,12 @@ public class VoidPackItem extends Item
         return new VoidPackInventory(stack.getNbt().getCompound("void_pack"), hand, player);
     }
 
+    @Override
+    public boolean canBeNested()
+    {
+        return false;
+    }
+
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext)
 	{
