@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shaped",
     "pattern": [
       " B ",
-      "A A",
+      "ACA",
       " A "
     ],
     "key": {
@@ -11,6 +11,9 @@
       },
       "B": {
         "item": "minecraft:string"
+      },
+      "C": {
+        "tag": "c:chest"
       }
     },
     "result": {

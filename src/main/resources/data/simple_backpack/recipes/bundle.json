@@ -1,16 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "shs",
-    "h h",
-    "hhh"
+    "SHS",
+    "HCH",
+    "HHH"
   ],
   "key": {
-    "h": {
+    "H": {
       "item": "minecraft:rabbit_hide"
     },
-    "s": {
+    "S": {
       "item": "minecraft:string"
+    },
+    "C": {
+      "tag": "c:chest"
     }
   },
   "result": {
