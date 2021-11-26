@@ -9,7 +9,7 @@
   ],
   "contributors": [],
   "contact": {
-    "homepage": "",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/simple-backpack-fabric",
     "sources": ""
   },
   "license": "MIT",
@@ -24,7 +24,9 @@
     ],
     "server": []
   },
-  "mixins": [],
+  "mixins": [
+    "simple_backpack.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.12.5",
     "fabric": "*",

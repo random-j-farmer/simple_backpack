@@ -1,7 +1,6 @@
 package com.kwpugh.simple_backpack.enderpack;
 
-import java.util.List;
-
+import com.kwpugh.simple_backpack.backpack.BasePack;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
@@ -16,7 +15,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class EnderPackItem extends Item
+import java.util.List;
+
+public class EnderPackItem extends BasePack
 {
 	public EnderPackItem(Item.Settings settings)
 	{
