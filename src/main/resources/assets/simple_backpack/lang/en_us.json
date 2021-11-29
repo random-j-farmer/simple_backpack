@@ -10,6 +10,7 @@
     "container.simple_backpack.ender_pack": "Enderchest on the go",
 
     "item.simple_backpack.simple_bundle": "Simple Bundle",
+    "item.simple_backpack.simple_bundle.tip1": "Sneak + right-click to dump ALL contents",
 
     "itemGroup.simple_backpack.simple_backpack_group": "Simple Backpack"
 }

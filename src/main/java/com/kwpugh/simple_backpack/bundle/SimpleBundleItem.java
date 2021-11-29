@@ -202,21 +202,26 @@ public class SimpleBundleItem extends Item
         }
         else
         {
-            if (playerEntity instanceof ServerPlayerEntity)
+            if(playerEntity.isSneaking())  // Safety check
             {
-                NbtList items = tag.getList("Items", 10);
-
-                for(int i = 0; i < items.size(); ++i)
+                if (playerEntity instanceof ServerPlayerEntity)
                 {
-                    NbtCompound item = items.getCompound(i);
-                    ItemStack stack = ItemStack.fromNbt(item);
-                    playerEntity.dropItem(stack, true);
-                }
-            }
+                    NbtList items = tag.getList("Items", 10);
 
-            itemStack.removeSubNbt("Items");
-            return true;
+                    for(int i = 0; i < items.size(); ++i)
+                    {
+                        NbtCompound item = items.getCompound(i);
+                        ItemStack stack = ItemStack.fromNbt(item);
+                        playerEntity.dropItem(stack, true);
+                    }
+                }
+
+                itemStack.removeSubNbt("Items");
+                return true;
+            }
         }
+
+        return false;
     }
 
     private static Stream<ItemStack> getBundledStacks(ItemStack stack)
@@ -247,8 +252,16 @@ public class SimpleBundleItem extends Item
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
     {
         tooltip.add((new TranslatableText("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxStorage)).formatted(Formatting.GRAY));
+        tooltip.add((new TranslatableText("item.simple_backpack.simple_bundle.tip1").formatted(Formatting.YELLOW)));
     }
 
+
+
+    /*
+
+        Class to define bundle inventory object
+
+     */
     private class BundleInventory implements Inventory
     {
         private final ItemStack bundle;
