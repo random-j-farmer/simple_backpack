@@ -10,7 +10,11 @@
     "container.simple_backpack.ender_pack": "Enderchest on the go",
 
     "item.simple_backpack.simple_bundle": "Simple Bundle",
-    "item.simple_backpack.simple_bundle.tip1": "Sneak + right-click to dump ALL contents",
+    "item.simple_backpack.simple_bundle.tip1": "Sneak + right-click to dump ALL contents on ground",
+
+    "item.simple_backpack.void_bundle": "Void Bundle",
+    "item.simple_backpack.void_bundle.tip1": "A bundle for your garbage",
+    "item.simple_backpack.void_bundle.tip2": "Sneak + right-click to destroy contents",
 
     "itemGroup.simple_backpack.simple_backpack_group": "Simple Backpack"
 }

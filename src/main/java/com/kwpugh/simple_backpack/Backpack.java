@@ -1,18 +1,14 @@
 package com.kwpugh.simple_backpack;
 
-import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.kwpugh.simple_backpack.backpack.BackpackInventoryInterface;
 import com.kwpugh.simple_backpack.backpack.BackpackItem;
 import com.kwpugh.simple_backpack.backpack.BackpackScreenHandler;
+import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
+import com.kwpugh.simple_backpack.bundle.VoidBundleItem;
 import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 import com.kwpugh.simple_backpack.voidpack.VoidPackInventoryInterface;
 import com.kwpugh.simple_backpack.voidpack.VoidPackItem;
 import com.kwpugh.simple_backpack.voidpack.VoidPackScreenHandler;
-
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
@@ -23,6 +19,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Backpack implements ModInitializer
 {
@@ -45,6 +44,7 @@ public class Backpack implements ModInitializer
     public static final Item ENDER_PACK = new EnderPackItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1));
 
     public static final Item SIMPLE_BUNDLE = new SimpleBundleItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1),  3456);
+    public static final Item VOID_BUNDLE = new VoidBundleItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1),  3456);
 
     @Override
     public void onInitialize()
@@ -70,6 +70,7 @@ public class Backpack implements ModInitializer
         Registry.register(Registry.ITEM, VOID_PACK_IDENTIFIER, VOID_PACK);
         Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "simple_bundle"), SIMPLE_BUNDLE);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "void_bundle"), VOID_BUNDLE);
     }
 
     public static void log(Level level, String message)
