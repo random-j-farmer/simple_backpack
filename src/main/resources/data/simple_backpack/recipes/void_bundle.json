@@ -1,24 +1,24 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-      " B ",
-      "ACA",
-      " A "
-    ],
-    "key": {
-      "A": {
-        "item": "minecraft:leather"
-      },
-      "B": {
-        "item": "minecraft:string"
-      },
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "ACA",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
     },
-      "C": {
-        "item": "simple_backpack:void_pack"
-      }
+    "B": {
+      "item": "minecraft:string"
     },
-    "result": {
-      "item": "simple_backpack:void_bundle",
-      "count": 1
+    "C": {
+      "tag": "c:chest"
     }
+  },
+  "result": {
+    "item": "simple_backpack:simple_bundle",
+    "count": 1
   }
+}
+

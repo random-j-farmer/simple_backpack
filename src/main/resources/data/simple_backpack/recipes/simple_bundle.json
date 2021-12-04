@@ -13,11 +13,11 @@
         "item": "minecraft:string"
       },
       "C": {
-        "tag": "c:chest"
+        "item": "simple_backpack:void_pack"
       }
     },
     "result": {
-      "item": "simple_backpack:simple_bundle",
+      "item": "simple_backpack:void_bundle",
       "count": 1
     }
   }
