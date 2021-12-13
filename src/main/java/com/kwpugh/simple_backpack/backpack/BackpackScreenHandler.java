@@ -1,6 +1,8 @@
 package com.kwpugh.simple_backpack.backpack;
 
+import com.google.common.collect.Sets;
 import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
+import com.kwpugh.simple_backpack.bundle.VoidBundleItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -10,7 +12,6 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
-import com.google.common.collect.Sets;
 
 import java.util.Set;
 
@@ -68,8 +69,13 @@ public class BackpackScreenHandler extends ScreenHandler
         public boolean stackMovementIsAllowed(ItemStack stack)
         {
             Item testItem = stack.getItem();
-            if(stack.getItem() instanceof BackpackItem) return false;
-            if(SHULKER_BOXES.contains(testItem)) return false;
+            if(stack.getItem() instanceof BackpackItem ||
+                    stack.getItem() instanceof SimpleBundleItem ||
+                    stack.getItem() instanceof VoidBundleItem ||
+                    SHULKER_BOXES.contains(testItem))
+            {
+                return false;
+            }
 
             return true;
         }
@@ -124,8 +130,13 @@ public class BackpackScreenHandler extends ScreenHandler
         ItemStack originalStack = slot.getStack();
         Item testItem = originalStack.getItem();
 
-        if(testItem instanceof BackpackItem) return ItemStack.EMPTY;
-        if(SHULKER_BOXES.contains(testItem)) return ItemStack.EMPTY;
+        if(testItem instanceof BackpackItem ||
+                testItem instanceof SimpleBundleItem ||
+                testItem instanceof VoidBundleItem ||
+                SHULKER_BOXES.contains(testItem))
+        {
+            return ItemStack.EMPTY;
+        }
 
         if (slot.hasStack())
         {
