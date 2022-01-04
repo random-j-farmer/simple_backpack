@@ -5,10 +5,14 @@ import com.kwpugh.simple_backpack.backpack.BackpackItem;
 import com.kwpugh.simple_backpack.backpack.BackpackScreenHandler;
 import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
 import com.kwpugh.simple_backpack.bundle.VoidBundleItem;
+import com.kwpugh.simple_backpack.config.ModConfig;
 import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 import com.kwpugh.simple_backpack.voidpack.VoidPackInventoryInterface;
 import com.kwpugh.simple_backpack.voidpack.VoidPackItem;
 import com.kwpugh.simple_backpack.voidpack.VoidPackScreenHandler;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
@@ -30,6 +34,8 @@ public class Backpack implements ModInitializer
     public static final String MOD_ID = "simple_backpack";
     public static final String MOD_NAME = "SimpleBackpack";
     public static final ItemGroup SIMPLE_BACKPACK_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_ID, "simple_backpack_group"), () -> new ItemStack(Backpack.BACKPACK));
+
+    public static final ModConfig CONFIG = AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new)).getConfig();
 
     public static final Identifier BACKPACK_IDENTIFIER = new Identifier(MOD_ID, "backpack");
     public static final Identifier VOID_PACK_IDENTIFIER = new Identifier(MOD_ID, "void_pack");
@@ -66,11 +72,30 @@ public class Backpack implements ModInitializer
             return new VoidPackScreenHandler(syncId, player.getInventory(), inventory.getInventory(), inventory.getInventoryWidth(), inventory.getInventoryHeight(), hand);
         }));
 
-        Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);
-        Registry.register(Registry.ITEM, VOID_PACK_IDENTIFIER, VOID_PACK);
-        Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "simple_bundle"), SIMPLE_BUNDLE);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "void_bundle"), VOID_BUNDLE);
+        if(CONFIG.GENERAL.enableBackpack)
+        {
+            Registry.register(Registry.ITEM, BACKPACK_IDENTIFIER, BACKPACK);
+        }
+
+        if(CONFIG.GENERAL.enableVoidpack)
+        {
+            Registry.register(Registry.ITEM, VOID_PACK_IDENTIFIER, VOID_PACK);
+        }
+
+        if(CONFIG.GENERAL.enableEnderpack)
+        {
+            Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
+        }
+
+        if(CONFIG.GENERAL.enableSimpleBundle)
+        {
+            Registry.register(Registry.ITEM, new Identifier(MOD_ID, "simple_bundle"), SIMPLE_BUNDLE);
+        }
+
+        if(CONFIG.GENERAL.enableVoidBundle)
+        {
+            Registry.register(Registry.ITEM, new Identifier(MOD_ID, "void_bundle"), VOID_BUNDLE);
+        }
     }
 
     public static void log(Level level, String message)
