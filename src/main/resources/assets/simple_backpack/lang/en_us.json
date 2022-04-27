@@ -1,4 +1,6 @@
 {
+    "item.simple_backpack.backpack_new": "Test Backpack",
+    "container.simple_backpack.backpack_new": "Simple Backpack",
 
     "item.simple_backpack.backpack": "Backpack",
     "container.simple_backpack.backpack": "Simple Backpack",
@@ -15,6 +17,9 @@
     "item.simple_backpack.void_bundle": "Void Bundle",
     "item.simple_backpack.void_bundle.tip1": "A bundle for your garbage",
     "item.simple_backpack.void_bundle.tip2": "Sneak + right-click to destroy contents",
+
+    "item.simple_backpack.portable_crafting": "Portable Crafting",
+    "container.simple_backpack.portable_crafting": "Crafting on the go",
 
     "itemGroup.simple_backpack.simple_backpack_group": "Simple Backpack"
 }

@@ -1,25 +1,24 @@
-package com.kwpugh.simple_backpack.backpack;
+package com.kwpugh.simple_backpack.portable;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BackpackItem extends Item
+public class PortableCraftingTable extends Item
 {
-    public BackpackItem(Settings settings)
+    private static final Text TITLE = Text.translatable("container.simple_backpack.portable_crafting");
+
+    public PortableCraftingTable(Settings settings)
     {
         super(settings);
-    }
-
-    @Override
-    public boolean canBeNested()
-    {
-        return false;
     }
 
     @Override
@@ -29,15 +28,15 @@ public class BackpackItem extends Item
 
         if(!world.isClient && !player.isSneaking())
         {
-            player.openHandledScreen(createScreenHandlerFactory(stack));
+            player.openHandledScreen(createPortableScreenHandlerFactory(world, player.getBlockPos()));
         }
 
         return TypedActionResult.success(stack);
     }
 
-    private NamedScreenHandlerFactory createScreenHandlerFactory(ItemStack stack)
+    public NamedScreenHandlerFactory createPortableScreenHandlerFactory(World world, BlockPos pos)
     {
         return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
-                new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
+                new PortableCraftingScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), TITLE);
     }
 }

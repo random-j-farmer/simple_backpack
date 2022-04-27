@@ -1,7 +1,8 @@
 package com.kwpugh.simple_backpack.mixin;
 
-import com.kwpugh.simple_backpack.backpack.BasePack;
+import com.kwpugh.simple_backpack.backpack.BackpackItem;
 import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
+import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +16,8 @@ public class EnchantmentTargetMixin
     @Inject(method = "Lnet/minecraft/enchantment/EnchantmentTarget$2;isAcceptableItem(Lnet/minecraft/item/Item;)Z", at = @At("HEAD"), cancellable = true)
     private void backpackIsAcceptableItem(Item item, CallbackInfoReturnable<Boolean> cir)
     {
-        if (item instanceof BasePack ||
+        if (item instanceof BackpackItem ||
+                item instanceof EnderPackItem ||
                 item instanceof SimpleBundleItem)
         {
             cir.setReturnValue(true);

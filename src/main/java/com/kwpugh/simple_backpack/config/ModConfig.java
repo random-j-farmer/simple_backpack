@@ -17,10 +17,6 @@ public class ModConfig extends PartitioningSerializer.GlobalData
                 +"\nGeneral Settings"
                 +"\n***********************")
 
-        public boolean enableBackpack = true;
-        public boolean enableVoidpack = true;
-        public boolean enableEnderpack = true;
-        public boolean enableSimpleBundle = true;
-        public boolean enableVoidBundle = true;
+        public boolean notUsedAnymoreButStillHere = true;
     }
 }

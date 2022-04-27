@@ -3,7 +3,6 @@ package com.kwpugh.simple_backpack.bundle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.util.NbtType;
-
 import net.minecraft.client.item.BundleTooltipData;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.item.TooltipData;
@@ -19,7 +18,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -251,8 +249,8 @@ public class SimpleBundleItem extends Item
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
     {
-        tooltip.add((new TranslatableText("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxStorage)).formatted(Formatting.GRAY));
-        tooltip.add((new TranslatableText("item.simple_backpack.simple_bundle.tip1").formatted(Formatting.YELLOW)));
+        tooltip.add((Text.translatable("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxStorage)).formatted(Formatting.GRAY));
+        tooltip.add((Text.translatable("item.simple_backpack.simple_bundle.tip1").formatted(Formatting.YELLOW)));
     }
 
 

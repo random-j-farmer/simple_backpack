@@ -254,9 +254,9 @@ public class VoidBundleItem extends Item
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
     {
-        tooltip.add((new TranslatableText("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxStorage)).formatted(Formatting.GRAY));
-        tooltip.add((new TranslatableText("item.simple_backpack.void_bundle.tip1").formatted(Formatting.YELLOW)));
-        tooltip.add((new TranslatableText("item.simple_backpack.void_bundle.tip2").formatted(Formatting.YELLOW)));
+        tooltip.add((Text.translatable("item.minecraft.bundle.fullness", getBundleOccupancy(stack), maxStorage)).formatted(Formatting.GRAY));
+        tooltip.add((Text.translatable("item.simple_backpack.void_bundle.tip1").formatted(Formatting.YELLOW)));
+        tooltip.add((Text.translatable("item.simple_backpack.void_bundle.tip2").formatted(Formatting.YELLOW)));
     }
 
 

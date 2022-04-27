@@ -1,18 +1,12 @@
 package com.kwpugh.simple_backpack;
 
-import com.kwpugh.simple_backpack.backpack.BackpackClientScreen;
-import com.kwpugh.simple_backpack.backpack.BackpackScreenHandler;
-import com.kwpugh.simple_backpack.voidpack.VoidPackClientScreen;
-import com.kwpugh.simple_backpack.voidpack.VoidPackScreenHandler;
-
+import com.kwpugh.simple_backpack.portable.PortableCraftingScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-
-import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -21,9 +15,10 @@ public class BackpackClient implements ClientModInitializer
      @Override
     public void onInitializeClient()
     {
-        ScreenProviderRegistry.INSTANCE.<BackpackScreenHandler>registerFactory(Backpack.BACKPACK_IDENTIFIER, (container -> new BackpackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText(Backpack.BACKPACK_TRANSLATION_KEY))));
-        ScreenProviderRegistry.INSTANCE.<VoidPackScreenHandler>registerFactory(Backpack.VOID_PACK_IDENTIFIER, (container -> new VoidPackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText(Backpack.VOID_PACK_TRANSLATION_KEY))));
-        
-        FabricModelPredicateProviderRegistry.register(Backpack.SIMPLE_BUNDLE, new Identifier("filled"), (itemStack, clientWorld, livingEntity, i) -> Backpack.SIMPLE_BUNDLE.getItemBarStep(itemStack));
+        HandledScreens.register(Backpack.BACKPACK_SCREEN_HANDLER, GenericContainerScreen::new);
+        HandledScreens.register(Backpack.VOID_PACK_SCREEN_HANDLER, GenericContainerScreen::new);
+        HandledScreens.register(Backpack.PORTABLE_CRAFTING_SCREEN_HANDLER, PortableCraftingScreen::new);
+
+        ModelPredicateProviderRegistry.register(Backpack.SIMPLE_BUNDLE, new Identifier("filled"), (itemStack, clientWorld, livingEntity, i) -> Backpack.SIMPLE_BUNDLE.getItemBarStep(itemStack));
     }
 }

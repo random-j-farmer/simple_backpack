@@ -1,7 +1,8 @@
-package com.kwpugh.simple_backpack.backpack;
+package com.kwpugh.simple_backpack.voidpack;
 
 import com.google.common.collect.Sets;
 import com.kwpugh.simple_backpack.Backpack;
+import com.kwpugh.simple_backpack.backpack.BackpackItem;
 import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
 import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +19,7 @@ import net.minecraft.screen.slot.SlotActionType;
 
 import java.util.Set;
 
-public class BackpackScreenHandler extends GenericContainerScreenHandler
+public class VoidpackScreenHandler extends GenericContainerScreenHandler
 {
     private final ScreenHandlerType<?> type;
     public static final Set<Item> SHULKER_BOXES;
@@ -37,17 +38,17 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
                 Items.WHITE_SHULKER_BOX, Items.YELLOW_SHULKER_BOX, Items.PURPLE_SHULKER_BOX);
     }
 
-    public BackpackScreenHandler(int syncId, PlayerInventory playerInventory)
+    public VoidpackScreenHandler(int syncId, PlayerInventory playerInventory)
     {
         this(syncId, playerInventory, new SimpleInventory(54));
     }
 
-    public BackpackScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory)
+    public VoidpackScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory)
     {
-        this(Backpack.BACKPACK_SCREEN_HANDLER, syncId, playerInventory, inventory);
+        this(Backpack.VOID_PACK_SCREEN_HANDLER, syncId, playerInventory, inventory);
     }
 
-    protected BackpackScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory)
+    protected VoidpackScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory)
     {
         super(ScreenHandlerType.GENERIC_9X6, syncId, playerInventory, inventory, 6);
         this.type = type;
@@ -69,7 +70,7 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         {
             for(m = 0; m < 9; ++m)
             {
-                this.addSlot(new BackpackLockedSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
+                this.addSlot(new VoidpackLockedSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
             }
         }
 
@@ -77,19 +78,19 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         {
             for(m = 0; m < 9; ++m)
             {
-                this.addSlot(new BackpackLockedSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
+                this.addSlot(new VoidpackLockedSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
             }
         }
 
         for(n = 0; n < 9; ++n)
         {
-            this.addSlot(new BackpackLockedSlot(playerInventory, n, 8 + n * 18, 161 + i));
+            this.addSlot(new VoidpackLockedSlot(playerInventory, n, 8 + n * 18, 161 + i));
         }
     }
 
-    public static class BackpackLockedSlot extends Slot
+    public static class VoidpackLockedSlot extends Slot
     {
-        public BackpackLockedSlot(Inventory inventory, int index, int x, int y)
+        public VoidpackLockedSlot(Inventory inventory, int index, int x, int y)
         {
             super(inventory, index, x, y);
         }
@@ -126,7 +127,8 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         {
             ItemStack stack = getSlot(slotId).getStack();
 
-            if(stack.getItem() instanceof BackpackItem ||
+            if (stack.getItem() instanceof BackpackItem ||
+                stack.getItem() instanceof VoidpackItem ||
                 stack.getItem() instanceof EnderPackItem ||
                 stack.getItem() instanceof SimpleBundleItem ||
                 SHULKER_BOXES.contains(stack.getItem()))
@@ -137,5 +139,12 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         }
 
         super.onSlotClick(slotId, clickData, actionType, playerEntity);
+    }
+
+    @Override
+    public void close(PlayerEntity player)
+    {
+        super.close(player);
+        this.inventory.onClose(player);
     }
 }

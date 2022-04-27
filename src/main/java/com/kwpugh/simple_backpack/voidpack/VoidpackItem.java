@@ -1,4 +1,4 @@
-package com.kwpugh.simple_backpack.backpack;
+package com.kwpugh.simple_backpack.voidpack;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -9,10 +9,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class BackpackItem extends Item
+public class VoidpackItem extends Item
 {
-    public BackpackItem(Settings settings)
-    {
+    public VoidpackItem(Settings settings) {
         super(settings);
     }
 
@@ -23,13 +22,13 @@ public class BackpackItem extends Item
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
     {
-        ItemStack stack = player.getStackInHand(hand);
+        ItemStack stack = user.getStackInHand(hand);
 
-        if(!world.isClient && !player.isSneaking())
+        if(!world.isClient)
         {
-            player.openHandledScreen(createScreenHandlerFactory(stack));
+            user.openHandledScreen(createScreenHandlerFactory(stack));
         }
 
         return TypedActionResult.success(stack);
@@ -38,6 +37,6 @@ public class BackpackItem extends Item
     private NamedScreenHandlerFactory createScreenHandlerFactory(ItemStack stack)
     {
         return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
-                new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
+                new VoidpackScreenHandler(syncId, inventory, new VoidpackInventory(stack)), stack.getName());
     }
 }
