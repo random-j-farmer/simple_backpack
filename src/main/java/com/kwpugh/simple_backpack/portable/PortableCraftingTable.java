@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class PortableCraftingTable extends Item
 {
-    private static final Text TITLE = Text.translatable("container.simple_backpack.portable_crafting");
+    private static final Text TITLE = Text.translatable("container.simple_backpack.portable_crafter");
 
     public PortableCraftingTable(Settings settings)
     {

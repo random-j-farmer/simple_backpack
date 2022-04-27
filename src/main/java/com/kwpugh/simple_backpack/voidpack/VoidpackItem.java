@@ -22,13 +22,13 @@ public class VoidpackItem extends Item
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
-        ItemStack stack = user.getStackInHand(hand);
+        ItemStack stack = player.getStackInHand(hand);
 
         if(!world.isClient)
         {
-            user.openHandledScreen(createScreenHandlerFactory(stack));
+            player.openHandledScreen(createScreenHandlerFactory(stack));
         }
 
         return TypedActionResult.success(stack);

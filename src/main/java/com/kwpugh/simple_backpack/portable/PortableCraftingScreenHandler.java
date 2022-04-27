@@ -1,6 +1,8 @@
 package com.kwpugh.simple_backpack.portable;
 
 import java.util.Optional;
+
+import com.kwpugh.simple_backpack.Backpack;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -111,7 +113,7 @@ public class PortableCraftingScreenHandler extends AbstractRecipeScreenHandler<C
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, Blocks.CRAFTING_TABLE);
+        return true;
     }
 
     public ItemStack transferSlot(PlayerEntity player, int index) {
