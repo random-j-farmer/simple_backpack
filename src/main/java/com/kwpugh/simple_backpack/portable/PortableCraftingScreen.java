@@ -17,6 +17,9 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+/*
+    Based on vanilla CraftingScreen class
+ */
 @Environment(EnvType.CLIENT)
 public class PortableCraftingScreen extends HandledScreen<PortableCraftingScreenHandler> implements RecipeBookProvider {
     private static final Identifier TEXTURE = new Identifier("textures/gui/container/crafting_table.png");

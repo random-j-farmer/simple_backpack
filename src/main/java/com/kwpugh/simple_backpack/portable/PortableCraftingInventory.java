@@ -10,6 +10,9 @@ import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.collection.DefaultedList;
 
+/*
+    Based on vanilla CraftingInventory class
+ */
 public class PortableCraftingInventory implements Inventory, RecipeInputProvider {
     private final DefaultedList<ItemStack> stacks;
     private final int width;
