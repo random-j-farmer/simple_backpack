@@ -57,11 +57,12 @@ public class Backpack implements ModInitializer
 
         Registry.register(Registry.ITEM, createID("backpack"), BACKPACK);
         Registry.register(Registry.ITEM, createID("void_pack"), VOID_PACK);
-        Registry.register(Registry.ITEM, createID("portable_crafter"), PORTABLE_CRAFTER);
 
         Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "simple_bundle"), SIMPLE_BUNDLE);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "void_bundle"), VOID_BUNDLE);
+
+        Registry.register(Registry.ITEM, createID("portable_crafter"), PORTABLE_CRAFTER);
     }
 
     public static void log(Level level, String message)
