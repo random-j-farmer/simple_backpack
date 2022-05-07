@@ -87,6 +87,41 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         }
     }
 
+    @Override
+    public ItemStack transferSlot(PlayerEntity player, int index)
+    {
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = (Slot)this.slots.get(index);
+
+        if (slot != null && slot.hasStack())
+        {
+            ItemStack itemStack2 = slot.getStack();
+            itemStack = itemStack2.copy();
+            if (index < inventoryHeight * inventoryWidth)
+            {
+                if (!this.insertItem(itemStack2, inventoryHeight * inventoryWidth, this.slots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.insertItem(itemStack2, 0, inventoryHeight * inventoryWidth, false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemStack2.isEmpty())
+            {
+                slot.setStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.markDirty();
+            }
+        }
+
+        return itemStack;
+    }
+
     public static class BackpackLockedSlot extends Slot
     {
         public BackpackLockedSlot(Inventory inventory, int index, int x, int y)
