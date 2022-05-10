@@ -47,14 +47,14 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         this(Backpack.BACKPACK_SCREEN_HANDLER, syncId, playerInventory, inventory);
     }
 
-    protected BackpackScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory)
+    public BackpackScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory)
     {
         super(ScreenHandlerType.GENERIC_9X6, syncId, playerInventory, inventory, 6);
         this.type = type;
         this.inventory = inventory;
         this.playerInventory = playerInventory;
 
-        checkSize(inventory, inventoryHeight * inventoryWidth);
+        checkSize(inventory, 54);
         inventory.onOpen(playerInventory.player);
         setupSlots(false);
     }
@@ -62,9 +62,9 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
     public void setupSlots(final boolean includeChestInventory)
     {
         int i = (this.inventoryHeight - 4) * 18;
-
         int n;
         int m;
+
         for(n = 0; n < this.inventoryHeight; ++n)
         {
             for(m = 0; m < 9; ++m)
@@ -85,41 +85,6 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         {
             this.addSlot(new BackpackLockedSlot(playerInventory, n, 8 + n * 18, 161 + i));
         }
-    }
-
-    @Override
-    public ItemStack transferSlot(PlayerEntity player, int index)
-    {
-        ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = (Slot)this.slots.get(index);
-
-        if (slot != null && slot.hasStack())
-        {
-            ItemStack itemStack2 = slot.getStack();
-            itemStack = itemStack2.copy();
-            if (index < inventoryHeight * inventoryWidth)
-            {
-                if (!this.insertItem(itemStack2, inventoryHeight * inventoryWidth, this.slots.size(), true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (!this.insertItem(itemStack2, 0, inventoryHeight * inventoryWidth, false))
-            {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemStack2.isEmpty())
-            {
-                slot.setStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.markDirty();
-            }
-        }
-
-        return itemStack;
     }
 
     public static class BackpackLockedSlot extends Slot
@@ -172,5 +137,47 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         }
 
         super.onSlotClick(slotId, clickData, actionType, playerEntity);
+    }
+
+    @Override
+    public boolean canUse(final PlayerEntity player)
+    {
+        return this.inventory.canPlayerUse(player);
+    }
+
+    @Override
+    public ItemStack transferSlot(PlayerEntity player, int index)
+    {
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+
+        if (slot.hasStack())
+        {
+            ItemStack itemStack2 = slot.getStack();
+            itemStack = itemStack2.copy();
+
+            if (index < this.inventory.size())
+            {
+                if (!this.insertItem(itemStack2, this.inventory.size(), this.slots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.insertItem(itemStack2, 0, this.inventory.size(), false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemStack2.isEmpty())
+            {
+                slot.setStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.markDirty();
+            }
+        }
+
+        return itemStack;
     }
 }
