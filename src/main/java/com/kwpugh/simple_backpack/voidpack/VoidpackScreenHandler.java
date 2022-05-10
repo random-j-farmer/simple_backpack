@@ -142,6 +142,12 @@ public class VoidpackScreenHandler extends GenericContainerScreenHandler
     }
 
     @Override
+    public ItemStack transferSlot(PlayerEntity player, int index)
+    {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public void close(PlayerEntity player)
     {
         super.close(player);

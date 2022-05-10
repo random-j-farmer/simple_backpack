@@ -23,8 +23,8 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
     private final ScreenHandlerType<?> type;
     public static final Set<Item> SHULKER_BOXES;
 
-    private final Inventory inventory;
-    private final PlayerInventory playerInventory;
+    public final Inventory inventory;
+    public final PlayerInventory playerInventory;
     public final int inventoryWidth = 9;
     public final int inventoryHeight = 6;
 
@@ -148,36 +148,42 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
     @Override
     public ItemStack transferSlot(PlayerEntity player, int index)
     {
-        ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
-
-        if (slot.hasStack())
-        {
-            ItemStack itemStack2 = slot.getStack();
-            itemStack = itemStack2.copy();
-
-            if (index < this.inventory.size())
-            {
-                if (!this.insertItem(itemStack2, this.inventory.size(), this.slots.size(), true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (!this.insertItem(itemStack2, 0, this.inventory.size(), false))
-            {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemStack2.isEmpty())
-            {
-                slot.setStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.markDirty();
-            }
-        }
-
-        return itemStack;
+        return ItemStack.EMPTY;
     }
+
+//    @Override
+//    public ItemStack transferSlot(PlayerEntity player, int index)
+//    {
+//        ItemStack itemStack = ItemStack.EMPTY;
+//        Slot slot = this.slots.get(index);
+//
+//        if (slot.hasStack())
+//        {
+//            ItemStack itemStack2 = slot.getStack();
+//            itemStack = itemStack2.copy();
+//
+//            if (index < this.inventory.size())
+//            {
+//                if (!this.insertItem(itemStack2, this.inventory.size(), this.slots.size(), true))
+//                {
+//                    return ItemStack.EMPTY;
+//                }
+//            }
+//            else if (!this.insertItem(itemStack2, 0, this.inventory.size(), false))
+//            {
+//                return ItemStack.EMPTY;
+//            }
+//
+//            if (itemStack2.isEmpty())
+//            {
+//                slot.setStack(ItemStack.EMPTY);
+//            }
+//            else
+//            {
+//                slot.markDirty();
+//            }
+//        }
+//
+//        return itemStack;
+//    }
 }
