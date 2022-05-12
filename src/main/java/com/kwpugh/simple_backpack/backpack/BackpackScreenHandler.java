@@ -3,6 +3,7 @@ package com.kwpugh.simple_backpack.backpack;
 import com.google.common.collect.Sets;
 import com.kwpugh.simple_backpack.Backpack;
 import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
+import com.kwpugh.simple_backpack.bundle.VoidBundleItem;
 import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -69,7 +70,7 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         {
             for(m = 0; m < 9; ++m)
             {
-                this.addSlot(new BackpackLockedSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
+                this.addSlot(new BackpackSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
             }
         }
 
@@ -77,19 +78,19 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         {
             for(m = 0; m < 9; ++m)
             {
-                this.addSlot(new BackpackLockedSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
+                this.addSlot(new BackpackSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
             }
         }
 
         for(n = 0; n < 9; ++n)
         {
-            this.addSlot(new BackpackLockedSlot(playerInventory, n, 8 + n * 18, 161 + i));
+            this.addSlot(new BackpackSlot(playerInventory, n, 8 + n * 18, 161 + i));
         }
     }
 
-    public static class BackpackLockedSlot extends Slot
+    public static class BackpackSlot extends Slot
     {
-        public BackpackLockedSlot(Inventory inventory, int index, int x, int y)
+        public BackpackSlot(Inventory inventory, int index, int x, int y)
         {
             super(inventory, index, x, y);
         }
@@ -97,17 +98,17 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         @Override
         public boolean canTakeItems(PlayerEntity playerEntity)
         {
-            return stackMovementIsAllowed(getStack());
+            return canMoveStack(getStack());
         }
 
         @Override
         public boolean canInsert(ItemStack stack)
         {
-            return stackMovementIsAllowed(stack);
+            return canMoveStack(stack);
         }
 
         // Prevents items that override canBeNested() from being inserted into backpack
-        public boolean stackMovementIsAllowed(ItemStack stack)
+        public boolean canMoveStack(ItemStack stack)
         {
             return stack.getItem().canBeNested();
         }
@@ -145,45 +146,54 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
         return this.inventory.canPlayerUse(player);
     }
 
-    @Override
-    public ItemStack transferSlot(PlayerEntity player, int index)
-    {
-        return ItemStack.EMPTY;
-    }
-
+    // Disable shift-click movement for now
 //    @Override
 //    public ItemStack transferSlot(PlayerEntity player, int index)
 //    {
-//        ItemStack itemStack = ItemStack.EMPTY;
-//        Slot slot = this.slots.get(index);
-//
-//        if (slot.hasStack())
-//        {
-//            ItemStack itemStack2 = slot.getStack();
-//            itemStack = itemStack2.copy();
-//
-//            if (index < this.inventory.size())
-//            {
-//                if (!this.insertItem(itemStack2, this.inventory.size(), this.slots.size(), true))
-//                {
-//                    return ItemStack.EMPTY;
-//                }
-//            }
-//            else if (!this.insertItem(itemStack2, 0, this.inventory.size(), false))
-//            {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            if (itemStack2.isEmpty())
-//            {
-//                slot.setStack(ItemStack.EMPTY);
-//            }
-//            else
-//            {
-//                slot.markDirty();
-//            }
-//        }
-//
-//        return itemStack;
+//        return ItemStack.EMPTY;
 //    }
+
+    @Override
+    public ItemStack transferSlot(final PlayerEntity player, final int invSlot)
+    {
+        ItemStack newStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(invSlot);
+        ItemStack originalStack = slot.getStack();
+        Item testItem = originalStack.getItem();
+
+        if(testItem instanceof BackpackItem ||
+                testItem instanceof SimpleBundleItem ||
+                testItem instanceof VoidBundleItem ||
+                SHULKER_BOXES.contains(testItem))
+        {
+            return ItemStack.EMPTY;
+        }
+
+        if (slot.hasStack())
+        {
+            newStack = originalStack.copy();
+            if (invSlot < this.inventory.size())
+            {
+                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (originalStack.isEmpty())
+            {
+                slot.setStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.markDirty();
+            }
+        }
+
+        return newStack;
+    }
 }

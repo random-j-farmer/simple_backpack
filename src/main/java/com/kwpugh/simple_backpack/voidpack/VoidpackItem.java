@@ -24,12 +24,11 @@ public class VoidpackItem extends Item
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
-        ItemStack stack = player.getStackInHand(hand);
+        if(player.world.isClient) return TypedActionResult.pass(player.getStackInHand(hand));
 
-        if(!world.isClient)
-        {
-            player.openHandledScreen(createScreenHandlerFactory(stack));
-        }
+        ItemStack stack = player.getStackInHand(hand);
+        
+        player.openHandledScreen(createScreenHandlerFactory(stack));
 
         return TypedActionResult.success(stack);
     }

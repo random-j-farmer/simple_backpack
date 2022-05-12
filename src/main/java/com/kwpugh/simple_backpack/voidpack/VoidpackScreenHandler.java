@@ -63,14 +63,13 @@ public class VoidpackScreenHandler extends GenericContainerScreenHandler
     public void setupSlots(final boolean includeChestInventory)
     {
         int i = (this.inventoryHeight - 4) * 18;
-
         int n;
         int m;
         for(n = 0; n < this.inventoryHeight; ++n)
         {
             for(m = 0; m < 9; ++m)
             {
-                this.addSlot(new VoidpackLockedSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
+                this.addSlot(new VoidpackSlot(inventory, m + n * 9, 8 + m * 18, 18 + n * 18));
             }
         }
 
@@ -78,19 +77,19 @@ public class VoidpackScreenHandler extends GenericContainerScreenHandler
         {
             for(m = 0; m < 9; ++m)
             {
-                this.addSlot(new VoidpackLockedSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
+                this.addSlot(new VoidpackSlot(playerInventory, m + n * 9 + 9, 8 + m * 18, 103 + n * 18 + i));
             }
         }
 
         for(n = 0; n < 9; ++n)
         {
-            this.addSlot(new VoidpackLockedSlot(playerInventory, n, 8 + n * 18, 161 + i));
+            this.addSlot(new VoidpackSlot(playerInventory, n, 8 + n * 18, 161 + i));
         }
     }
 
-    public static class VoidpackLockedSlot extends Slot
+    public static class VoidpackSlot extends Slot
     {
-        public VoidpackLockedSlot(Inventory inventory, int index, int x, int y)
+        public VoidpackSlot(Inventory inventory, int index, int x, int y)
         {
             super(inventory, index, x, y);
         }
@@ -98,17 +97,17 @@ public class VoidpackScreenHandler extends GenericContainerScreenHandler
         @Override
         public boolean canTakeItems(PlayerEntity playerEntity)
         {
-            return stackMovementIsAllowed(getStack());
+            return canMoveStack(getStack());
         }
 
         @Override
         public boolean canInsert(ItemStack stack)
         {
-            return stackMovementIsAllowed(stack);
+            return canMoveStack(stack);
         }
 
         // Prevents items that override canBeNested() from being inserted into backpack
-        public boolean stackMovementIsAllowed(ItemStack stack)
+        public boolean canMoveStack(ItemStack stack)
         {
             return stack.getItem().canBeNested();
         }
@@ -141,6 +140,7 @@ public class VoidpackScreenHandler extends GenericContainerScreenHandler
         super.onSlotClick(slotId, clickData, actionType, playerEntity);
     }
 
+    // Disable shift-click movement for now
     @Override
     public ItemStack transferSlot(PlayerEntity player, int index)
     {

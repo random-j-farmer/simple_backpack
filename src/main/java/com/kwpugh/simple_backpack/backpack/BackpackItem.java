@@ -25,14 +25,12 @@ public class BackpackItem extends Item
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
+        if(player.world.isClient) return TypedActionResult.pass(player.getStackInHand(hand));
+
         player.setCurrentHand(hand);
         ItemStack stack = player.getStackInHand(hand);
 
-        if(!world.isClient && !player.isSneaking())
-        {
-            player.openHandledScreen(createScreenHandlerFactory(stack));
-            return TypedActionResult.success(player.getStackInHand(hand));
-        }
+        player.openHandledScreen(createScreenHandlerFactory(stack));
 
         return TypedActionResult.pass(player.getStackInHand(hand));
     }
@@ -40,6 +38,6 @@ public class BackpackItem extends Item
     private NamedScreenHandlerFactory createScreenHandlerFactory(ItemStack stack)
     {
         return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
-                new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
+            new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
     }
 }
