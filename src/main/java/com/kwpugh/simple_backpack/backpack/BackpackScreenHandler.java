@@ -3,7 +3,6 @@ package com.kwpugh.simple_backpack.backpack;
 import com.google.common.collect.Sets;
 import com.kwpugh.simple_backpack.Backpack;
 import com.kwpugh.simple_backpack.bundle.SimpleBundleItem;
-import com.kwpugh.simple_backpack.bundle.VoidBundleItem;
 import com.kwpugh.simple_backpack.enderpack.EnderPackItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -135,6 +134,7 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
                 // Return to caller with no action
                 return;
             }
+
         }
 
         super.onSlotClick(slotId, clickData, actionType, playerEntity);
@@ -147,53 +147,55 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
     }
 
     // Disable shift-click movement for now
+    @Override
+    public ItemStack transferSlot(PlayerEntity player, int index)
+    {
+        return ItemStack.EMPTY;
+    }
+
 //    @Override
-//    public ItemStack transferSlot(PlayerEntity player, int index)
+//    public ItemStack transferSlot(final PlayerEntity player, final int invSlot)
 //    {
-//        return ItemStack.EMPTY;
+//        ItemStack newStack = ItemStack.EMPTY;
+//        Slot slot = this.slots.get(invSlot);
+//        ItemStack originalStack = slot.getStack();
+//        Item testItem = originalStack.getItem();
+//
+//        if(testItem instanceof BackpackItem ||
+//                testItem instanceof SimpleBundleItem ||
+//                testItem instanceof VoidBundleItem ||
+//                SHULKER_BOXES.contains(testItem))
+//        {
+//            return ItemStack.EMPTY;
+//        }
+//
+//        if (slot.hasStack())
+//        {
+//            newStack = originalStack.copy();
+//            if (invSlot < this.inventory.size())
+//            {
+//                if (!this.testInsertItem(originalStack, this.inventory.size(), this.slots.size(), true))
+//                {
+//                    return ItemStack.EMPTY;
+//                }
+//            }
+//            else if (!this.testInsertItem(originalStack, 0, this.inventory.size(), false))
+//            {
+//                return ItemStack.EMPTY;
+//            }
+//
+//            if (originalStack.isEmpty())
+//            {
+//                slot.setStack(ItemStack.EMPTY);
+//            }
+//            else
+//            {
+//                slot.markDirty();
+//            }
+//        }
+//
+//        return newStack;
 //    }
 
-    @Override
-    public ItemStack transferSlot(final PlayerEntity player, final int invSlot)
-    {
-        ItemStack newStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(invSlot);
-        ItemStack originalStack = slot.getStack();
-        Item testItem = originalStack.getItem();
 
-        if(testItem instanceof BackpackItem ||
-                testItem instanceof SimpleBundleItem ||
-                testItem instanceof VoidBundleItem ||
-                SHULKER_BOXES.contains(testItem))
-        {
-            return ItemStack.EMPTY;
-        }
-
-        if (slot.hasStack())
-        {
-            newStack = originalStack.copy();
-            if (invSlot < this.inventory.size())
-            {
-                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
-                {
-                    return ItemStack.EMPTY;
-                }
-            }
-            else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
-            {
-                return ItemStack.EMPTY;
-            }
-
-            if (originalStack.isEmpty())
-            {
-                slot.setStack(ItemStack.EMPTY);
-            }
-            else
-            {
-                slot.markDirty();
-            }
-        }
-
-        return newStack;
-    }
 }

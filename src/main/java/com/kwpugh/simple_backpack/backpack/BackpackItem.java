@@ -29,7 +29,6 @@ public class BackpackItem extends Item
 
         player.setCurrentHand(hand);
         ItemStack stack = player.getStackInHand(hand);
-
         player.openHandledScreen(createScreenHandlerFactory(stack));
 
         return TypedActionResult.pass(player.getStackInHand(hand));
@@ -37,7 +36,11 @@ public class BackpackItem extends Item
 
     private NamedScreenHandlerFactory createScreenHandlerFactory(ItemStack stack)
     {
-        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
-            new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
+        // OLD LOGIC
+//        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
+//            new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
+
+        return new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) ->
+                NewBackpackScreenHandler.createGeneric9x6(i, playerInventory, new BackpackInventory(stack)), stack.getName());
     }
 }

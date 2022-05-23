@@ -20,6 +20,10 @@ repositories {
 	maven {
 		url "https://maven.shedaniel.me/"
 	}
+
+	maven {
+		url = 'https://maven.terraformersmc.com/releases/'
+	} //for mod menu
 }
 
 dependencies {
@@ -40,9 +44,13 @@ dependencies {
 	}
 
 	//REI
-//	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.roughlyenoughitems}"
-//	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.roughlyenoughitems}"
-//	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.roughlyenoughitems}"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.roughlyenoughitems}"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.roughlyenoughitems}"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.roughlyenoughitems}"
+
+	modImplementation ("com.terraformersmc:modmenu:3.1.0") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {
