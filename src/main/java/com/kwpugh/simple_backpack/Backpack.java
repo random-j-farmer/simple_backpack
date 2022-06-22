@@ -15,10 +15,19 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.BarrelBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
@@ -47,6 +56,7 @@ public class Backpack implements ModInitializer
     public static final Item SIMPLE_BUNDLE = new SimpleBundleItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1),  3456);
     public static final Item VOID_BUNDLE = new VoidBundleItem(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1),  3456);
     public static final Item PORTABLE_CRAFTER = new PortableCraftingTable(new Item.Settings().group(Backpack.SIMPLE_BACKPACK_GROUP).maxCount(1));
+
 
     @Override
     public void onInitialize()
