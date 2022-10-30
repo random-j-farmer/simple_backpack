@@ -103,7 +103,7 @@ public class PortableCraftingScreen extends HandledScreen<PortableCraftingScreen
     }
 
     public void removed() {
-        this.recipeBook.close();
+        //this.recipeBook.close();
         super.removed();
     }
 

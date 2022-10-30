@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "simple_backpack:items/portable_crafter"
+        "layer0": "simple_backpack:item/portable_crafter"
     }
 }
