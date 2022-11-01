@@ -15,8 +15,13 @@ public class ModConfig extends PartitioningSerializer.GlobalData
     {
         @Comment("***********************"
                 +"\nGeneral Settings"
+                +"\nTo bbe safe,"
+                +"\nOnly change max storage"
+                +"\nif bunndles are empty"
+                +"\nUse with caution"
                 +"\n***********************")
 
-        public boolean notUsedAnymoreButStillHere = true;
+        public int simpleBundleMaxStorage = 3456;
+        public int voidBundleMaxStorage = 3456;
     }
 }
