@@ -148,7 +148,7 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
 
     // Disable shift-click movement for now
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int index)
+    public ItemStack quickMove(PlayerEntity player, int index)
     {
         return ItemStack.EMPTY;
     }

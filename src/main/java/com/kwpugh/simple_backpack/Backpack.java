@@ -18,6 +18,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registries;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -47,18 +48,18 @@ public class Backpack implements ModInitializer
     @Override
     public void onInitialize()
     {
-        BACKPACK_SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, createID("backpack"), new ScreenHandlerType<>(BackpackScreenHandler::new));
-        VOID_PACK_SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, createID("void_pack"), new ScreenHandlerType<>(VoidpackScreenHandler::new));
-        PORTABLE_CRAFTING_SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, createID("portable_crafting"), new ScreenHandlerType<>(PortableCraftingScreenHandler::new));
+        BACKPACK_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("backpack"), new ScreenHandlerType<>(BackpackScreenHandler::new));
+        VOID_PACK_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("void_pack"), new ScreenHandlerType<>(VoidpackScreenHandler::new));
+        PORTABLE_CRAFTING_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("portable_crafting"), new ScreenHandlerType<>(PortableCraftingScreenHandler::new));
 
-        Registry.register(Registry.ITEM, createID("backpack"), BACKPACK);
-        Registry.register(Registry.ITEM, createID("void_pack"), VOID_PACK);
+        Registry.register(Registries.ITEM, createID("backpack"), BACKPACK);
+        Registry.register(Registries.ITEM, createID("void_pack"), VOID_PACK);
 
-        Registry.register(Registry.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
-        Registry.register(Registry.ITEM, createID("simple_bundle"), SIMPLE_BUNDLE);
-        Registry.register(Registry.ITEM, createID("void_bundle"), VOID_BUNDLE);
+        Registry.register(Registries.ITEM, ENDER_PACK_IDENTIFIER, ENDER_PACK);
+        Registry.register(Registries.ITEM, createID("simple_bundle"), SIMPLE_BUNDLE);
+        Registry.register(Registries.ITEM, createID("void_bundle"), VOID_BUNDLE);
 
-        Registry.register(Registry.ITEM, createID("portable_crafter"), PORTABLE_CRAFTER);
+        Registry.register(Registries.ITEM, createID("portable_crafter"), PORTABLE_CRAFTER);
 
         SimpleBackpackGroup.addGroup();
     }
