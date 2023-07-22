@@ -18,8 +18,8 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registries;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,9 +48,12 @@ public class Backpack implements ModInitializer
     @Override
     public void onInitialize()
     {
-        BACKPACK_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("backpack"), new ScreenHandlerType<>(BackpackScreenHandler::new));
-        VOID_PACK_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("void_pack"), new ScreenHandlerType<>(VoidpackScreenHandler::new));
-        PORTABLE_CRAFTING_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("portable_crafting"), new ScreenHandlerType<>(PortableCraftingScreenHandler::new));
+        BACKPACK_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("backpack"),
+                new ScreenHandlerType<>(new BackpackScreenHandler.Factory(), null));
+        VOID_PACK_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("void_pack"),
+                new ScreenHandlerType<>(new VoidpackScreenHandler.Factory(), null));
+        PORTABLE_CRAFTING_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, createID("portable_crafting"),
+                new ScreenHandlerType<>(new PortableCraftingScreenHandler.Factory(), null));
 
         Registry.register(Registries.ITEM, createID("backpack"), BACKPACK);
         Registry.register(Registries.ITEM, createID("void_pack"), VOID_PACK);

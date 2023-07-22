@@ -12,9 +12,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
@@ -151,5 +154,13 @@ public class BackpackScreenHandler extends GenericContainerScreenHandler
     public ItemStack quickMove(PlayerEntity player, int index)
     {
         return ItemStack.EMPTY;
+    }
+
+
+    public static class Factory implements ScreenHandlerType.Factory<BackpackScreenHandler> {
+        @Override
+        public BackpackScreenHandler create(int syncId, PlayerInventory playerInventory) {
+            return new BackpackScreenHandler(syncId, playerInventory);
+        }
     }
 }

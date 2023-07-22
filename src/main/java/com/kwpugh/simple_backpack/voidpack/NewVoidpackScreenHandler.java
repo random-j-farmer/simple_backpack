@@ -155,7 +155,6 @@ public class NewVoidpackScreenHandler extends ScreenHandler
     }
 
     public void close(PlayerEntity player) {
-        super.close(player);
         this.inventory.onClose(player);
     }
 

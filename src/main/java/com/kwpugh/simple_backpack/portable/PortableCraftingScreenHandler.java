@@ -2,8 +2,6 @@ package com.kwpugh.simple_backpack.portable;
 
 import java.util.Optional;
 
-import com.kwpugh.simple_backpack.Backpack;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingInventory;
@@ -27,13 +25,6 @@ import net.minecraft.world.World;
  */
 public class PortableCraftingScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory>
 {
-    public static final int field_30781 = 0;
-    private static final int field_30782 = 1;
-    private static final int field_30783 = 10;
-    private static final int field_30784 = 10;
-    private static final int field_30785 = 37;
-    private static final int field_30786 = 37;
-    private static final int field_30787 = 46;
     private final CraftingInventory input;
     private final CraftingResultInventory result;
     private final ScreenHandlerContext context;
@@ -79,7 +70,7 @@ public class PortableCraftingScreenHandler extends AbstractRecipeScreenHandler<C
             if (optional.isPresent()) {
                 CraftingRecipe craftingRecipe = (CraftingRecipe)optional.get();
                 if (resultInventory.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {
-                    itemStack = craftingRecipe.craft(craftingInventory);
+                    itemStack = craftingRecipe.craft(craftingInventory, player.getCommandSource().getRegistryManager());
                 }
             }
 
@@ -105,11 +96,10 @@ public class PortableCraftingScreenHandler extends AbstractRecipeScreenHandler<C
     }
 
     public boolean matches(Recipe<? super CraftingInventory> recipe) {
-        return recipe.matches(this.input, this.player.world);
+        return recipe.matches(this.input, this.player.getWorld());
     }
 
     public void close(PlayerEntity player) {
-        super.close(player);
         this.context.run((world, pos) -> {
             this.dropInventory(player, this.input);
         });
@@ -193,5 +183,12 @@ public class PortableCraftingScreenHandler extends AbstractRecipeScreenHandler<C
 
     public boolean canInsertIntoSlot(int index) {
         return index != this.getCraftingResultSlotIndex();
+    }
+
+    public static class Factory implements ScreenHandlerType.Factory<PortableCraftingScreenHandler> {
+        @Override
+        public PortableCraftingScreenHandler create(int syncId, PlayerInventory playerInventory) {
+            return new PortableCraftingScreenHandler(syncId, playerInventory);
+        }
     }
 }
